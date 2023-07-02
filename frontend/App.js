@@ -1,112 +1,94 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import { View, Text } from 'react-native'
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+//ini kodingan screen yang digunain dalam project 
+import Homepage from './src/screens/Homepage'; 
+import SKredit from './src/screens/Simulasi/Kredit'; 
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+//pemanggilan stack dan bottom tab
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+// const HomeStack = () => {
+//   return(
+//   <Stack.Navigator screenOptions={{headerShown: false}}>
+//       <Stack.Screen name="Home" component={Homepage} />
+//       <Stack.Screen name="EditFlow" component={EditFlow} />
+//   </Stack.Navigator>
+//   );
+// }
+
+const RootHome = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <Tab.Navigator
+      initialRouteName="HomePage"
+      screenOptions={{
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor : '#1c1c1c',
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#2b2b2b',
+          paddingVertical : 10,
+          position : 'absolute',
+          height : 75,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Homee"
+        component={Homepage}
+        // detachInactiveScreens={true}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="playlist-check" color={color} size={40} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={SKredit}
+        // detachInactiveScreens={true}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <View style={{backgroundColor:'orange',padding:5,borderRadius: 30}}>
+               <Icon name="plus" color={'white'} size={40} />
+            </View>
+
+          ),
+        }}
+      />
+          
+      <Tab.Screen
+        name="Set"
+        component={Homepage}
+        detachInactiveScreens={true}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="account" color={color} size={40} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
-};
+}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+//Navigation Container untuk manggil screen
+const App = () => {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name='Homepage' component={RootHome} />
+        <Stack.Screen name='SKredit' component={SKredit} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default App

@@ -5,15 +5,16 @@ class User extends Model {}
 
 User.init(
   {
-    nip: {
-      type: DataTypes.INTEGER,
+    username: {
+      type: DataTypes.STRING,
       unique: true,
     },
     nama: {
       type: DataTypes.STRING,
     },
-    jabatan: {
+    role: {
       type: DataTypes.STRING,
+      defaultValue: "user",
     },
     password: {
       type: DataTypes.STRING,

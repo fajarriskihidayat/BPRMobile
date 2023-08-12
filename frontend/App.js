@@ -31,7 +31,7 @@ const RootHome = () => {
         tabBarInactiveTintColor : '#1c1c1c',
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#2b2b2b',
+          backgroundColor: '#393985',
           paddingVertical : 10,
           position : 'absolute',
           height : 75,
@@ -45,7 +45,7 @@ const RootHome = () => {
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
-            <Icon name="playlist-check" color={color} size={40} />
+            <Icon name="home-outline" color={color} size={40} />
           ),
         }}
       />
@@ -56,9 +56,9 @@ const RootHome = () => {
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
-            <View style={{backgroundColor:'orange',padding:5,borderRadius: 30}}>
-               <Icon name="plus" color={'white'} size={40} />
-            </View>
+            // <View style={{backgroundColor:'orange',padding:5,borderRadius: 30}}>
+               <Icon name="office-building" color={color} size={40} />
+            // </View>
 
           ),
         }}
@@ -71,7 +71,7 @@ const RootHome = () => {
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
-            <Icon name="account" color={color} size={40} />
+            <Icon name="contacts" color={color} size={40} />
           ),
         }}
       />

@@ -7,7 +7,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //ini kodingan screen yang digunain dalam project 
 import Homepage from './src/screens/Homepage'; 
-import SKredit from './src/screens/Simulasi/Kredit'; 
+import SKredit from './src/screens/Kredit'; 
+import Login from './src/screens/Login'; 
+import Register from './src/screens/Register'; 
 
 //pemanggilan stack dan bottom tab
 const Stack = createStackNavigator();
@@ -84,6 +86,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Homepage' component={RootHome} />
         <Stack.Screen name='SKredit' component={SKredit} />
       </Stack.Navigator>

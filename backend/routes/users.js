@@ -26,11 +26,11 @@ router.get("/account/:username", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { username, nama, password } = req.body;
+  const { username, nama, no_hp, password } = req.body;
 
   const encryptPwd = await bcrypt.hash(password, 10);
 
-  if (!username || !nama || !password) {
+  if (!username || !nama || !no_hp || !password) {
     res.status(400).json({
       error: "Bad request",
     });
@@ -38,9 +38,11 @@ router.post("/", async (req, res) => {
     const users = await UsersModel.create({
       username,
       nama,
+      no_hp,
       password: encryptPwd,
     });
     res.status(200).json({
+      status: 200,
       data: users,
       metadata: "Create user success",
     });
@@ -104,6 +106,7 @@ router.post("/login", async (req, res) => {
 
   if (check.compare === true) {
     res.status(200).json({
+      status: 200,
       user: check.userData,
       metadata: "Login success",
     });

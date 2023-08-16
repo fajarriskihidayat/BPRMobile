@@ -12,12 +12,15 @@ User.init(
     nama: {
       type: DataTypes.STRING,
     },
-    role: {
+    no_hp: {
       type: DataTypes.STRING,
-      defaultValue: "user",
     },
     password: {
       type: DataTypes.STRING,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: "user",
     },
   },
   {

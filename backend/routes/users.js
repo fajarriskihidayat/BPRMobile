@@ -5,34 +5,44 @@ const bcrypt = require("bcrypt");
 const UsersModel = require("../models/users");
 const passwordCheck = require("../utils/passwordCheck");
 
-router.get("/:nip", async (req, res) => {
-  const { nip } = req.params;
-
-  const users = await UsersModel.findOne({ where: { nip: nip } });
+router.get("/all", async (req, res) => {
+  const users = await UsersModel.findAll({ where: { role: "user" } });
 
   res.status(200).json({
     data: users,
-    metadata: "Get users by nip",
+    metadata: "Get users by username",
+  });
+});
+
+router.get("/account/:username", async (req, res) => {
+  const { username } = req.params;
+
+  const users = await UsersModel.findOne({ where: { username: username } });
+
+  res.status(200).json({
+    data: users,
+    metadata: "Get users by username",
   });
 });
 
 router.post("/", async (req, res) => {
-  const { nip, nama, jabatan, password } = req.body;
+  const { username, nama, no_hp, password } = req.body;
 
   const encryptPwd = await bcrypt.hash(password, 10);
 
-  if (!nip || !nama || !jabatan || !password) {
+  if (!username || !nama || !no_hp || !password) {
     res.status(400).json({
       error: "Bad request",
     });
   } else {
     const users = await UsersModel.create({
-      nip,
+      username,
       nama,
-      jabatan,
+      no_hp,
       password: encryptPwd,
     });
     res.status(200).json({
+      status: 200,
       data: users,
       metadata: "Create user success",
     });
@@ -40,25 +50,24 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { nip, nama, jabatan, password, passwordBaru } = req.body;
+  const { username, nama, password, passwordBaru } = req.body;
 
-  const user = await UsersModel.findOne({ where: { nip: nip } });
+  const user = await UsersModel.findOne({ where: { username: username } });
   if (!user) {
     res.status(404).json({
       error: "User Not Found",
     });
   } else {
-    const check = await passwordCheck(nip, password);
+    const check = await passwordCheck(username, password);
     const encryptPwd = await bcrypt.hash(passwordBaru, 10);
 
     if (check.compare === true) {
       const users = await UsersModel.update(
         {
           nama,
-          jabatan,
           password: encryptPwd,
         },
-        { where: { nip: nip } }
+        { where: { username: username } }
       );
 
       res.status(200).json({
@@ -73,10 +82,10 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:nip", async (req, res) => {
-  const { nip } = req.params;
+router.delete("/:username", async (req, res) => {
+  const { username } = req.params;
 
-  const user = await UsersModel.destroy({ where: { nip: nip } });
+  const user = await UsersModel.destroy({ where: { username: username } });
 
   if (!user) {
     res.status(404).json({
@@ -91,12 +100,13 @@ router.delete("/:nip", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { nip, password } = req.body;
+  const { username, password } = req.body;
 
-  const check = await passwordCheck(nip, password);
+  const check = await passwordCheck(username, password);
 
   if (check.compare === true) {
     res.status(200).json({
+      status: 200,
       user: check.userData,
       metadata: "Login success",
     });

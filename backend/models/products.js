@@ -14,6 +14,15 @@ Products.init(
     suku_bunga: {
       type: DataTypes.INTEGER,
     },
+    deskripsi: {
+      type: DataTypes.TEXT,
+    },
+    syarat: {
+      type: DataTypes.TEXT,
+    },
+    manfaat: {
+      type: DataTypes.TEXT,
+    },
     img_url: {
       type: DataTypes.STRING,
     },

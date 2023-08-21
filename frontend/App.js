@@ -10,6 +10,9 @@ import Homepage from './src/screens/Homepage';
 import SKredit from './src/screens/Kredit'; 
 import Login from './src/screens/Login'; 
 import Register from './src/screens/Register'; 
+import Profile from './src/screens/Profile'; 
+import Detail from './src/screens/Detail'; 
+import User from './src/screens/User'; 
 
 //pemanggilan stack dan bottom tab
 const Stack = createStackNavigator();
@@ -54,7 +57,7 @@ const RootHome = () => {
       <Tab.Screen
         name="Add"
         component={SKredit}
-        // detachInactiveScreens={true}
+        // detachInactiveScreens={true}1
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
@@ -68,7 +71,7 @@ const RootHome = () => {
           
       <Tab.Screen
         name="Set"
-        component={Homepage}
+        component={Profile}
         detachInactiveScreens={true}
         options={{
           tabBarLabel: '',
@@ -77,6 +80,19 @@ const RootHome = () => {
           ),
         }}
       />
+
+    <Tab.Screen
+        name="User"
+        component={User}
+        detachInactiveScreens={true}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="account" color={color} size={40} />
+          ),
+        }}
+      />
+      
     </Tab.Navigator>
   );
 }
@@ -90,6 +106,9 @@ const App = () => {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Homepage' component={RootHome} />
         <Stack.Screen name='SKredit' component={SKredit} />
+        <Stack.Screen name='Profile' component={Profile} />
+        <Stack.Screen name='Detail' component={Detail} />
+        <Stack.Screen name='User' component={User} />
       </Stack.Navigator>
     </NavigationContainer>
   )

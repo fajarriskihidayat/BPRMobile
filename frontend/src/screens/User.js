@@ -31,8 +31,8 @@ const User = () => {
         </View>
         <View style={styles.form}>
             
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.textButton}>Reset Password</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>
+                <Text style={styles.textButton}>Masuk Admin</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnLogout}>
                 <Text style={styles.textLogout}>Logout</Text>
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
       flexDirection : 'row',
       paddingVertical : 10,
     },
+    
     form : {
         marginHorizontal : 45,
         marginTop : 5

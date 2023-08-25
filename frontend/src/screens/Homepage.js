@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Homepage = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -28,35 +29,27 @@ const Homepage = () => {
           <Text style={styles.title}>BPR Dana Bintan Sejahtera</Text>
           <Image source={Office} style={styles.image} />
           <View style={styles.buttonArea}>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="water-percent" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Kredit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="piggy-bank-outline" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Tabungan</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="camera-timer" color={'white'} size={40} />
               <Text style={styles.textNaviHome}>Simulasi Deposito</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.bodyPage}>
-          <Text style={styles.title}>Simulasi Kredit</Text>
-          <Image source={Simulation} style={styles.image} />
-          <Text style={styles.descText}>
-            Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai
-            kebutuhan dana pembelian rumah kebutuhan konsumtif. Pencairan
-            pinjaman dilakukan sekaligus, sedangkan pelunasan pinjaman diangsur
-            sesuai dengan jadwal angsuran yang telah ditetapkan.
-          </Text>
-          <TouchableOpacity style={styles.buttonPrimary}>
-            <Text style={styles.buttonText}>Coba Sekarang</Text>
-          </TouchableOpacity>
-          <View style={styles.product}></View>
-          <Text style={styles.title}>Produk Unggulan</Text>
-        </View>
+        
       <View style={styles.bodyPage}>
         <Text style={styles.title1}>Simulasi Kredit</Text>
         <Image source={Simulation} style={styles.image}/>

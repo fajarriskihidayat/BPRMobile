@@ -67,14 +67,14 @@ const Kredit = () => {
       placeholderStyle={{
           color: "grey",
         }}
-      style={styles.dropDown}
+      style={[styles.dropDown, styles.elevation]}
       placeholder="Pilih kategori" 
 
         />
 
       <Text style={styles.formText}>Plafond Kredit</Text>
          <TextInput
-         style={styles.input}
+         style={[styles.input, styles.elevation]}
          placeholder ="Plafond Kredit"
          placeholderTextColor={'#969595'}
          onChangeText={(plafond) => setPlafond(plafond)}
@@ -83,7 +83,7 @@ const Kredit = () => {
 
       <Text style={styles.formText}>Tenor/Jangka Waktu</Text>
          <TextInput
-         style={styles.input}
+         style={[styles.input, styles.elevation]}
          placeholder ="Tenor"
          placeholderTextColor={'#969595'}
          onChangeText={(tenor) => setTenor(tenor)}
@@ -191,12 +191,13 @@ const styles = StyleSheet.create({
       fontWeight : '700',
       color : 'black'
     },
+    elevation: {
+      elevation: 1.5,
+      shadowColor: 'black',
+    },
     input : {
         height : 50,
-        borderWidth : 1,
-        borderColor : 'black',
         borderRadius : 10,
-        borderWidth : 1,
         paddingHorizontal : 10,
         fontSize : 17,
         fontWeight : '300',
@@ -204,7 +205,8 @@ const styles = StyleSheet.create({
         color : 'black'
       },
       dropDown : {
-        marginTop : 10
+        marginTop : 10,
+        borderWidth : 0
       },
       modalView: {
         marginHorizontal: 20,

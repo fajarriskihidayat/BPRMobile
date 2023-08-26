@@ -44,30 +44,82 @@ const Homepage = ({navigation}) => {
           <Text style={styles.title}>BPR Dana Bintan Sejahtera</Text>
           <Image source={Office} style={styles.image} />
           <View style={styles.buttonArea}>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="water-percent" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Kredit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="piggy-bank-outline" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Tabungan</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNaviHome}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SKredit')}
+            >
               <Icon name="camera-timer" color={'white'} size={40} />
               <Text style={styles.textNaviHome}>Simulasi Deposito</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.bodyPage}>
-          <Text style={styles.title1}>Simulasi Kredit</Text>
-          <Image source={Simulation} style={styles.image} />
-          <Text style={styles.descText}>
-            Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai
-            kebutuhan dana pembelian rumah kebutuhan konsumtif.
-          </Text>
-          <TouchableOpacity style={styles.buttonPrimary}>
-            <Text style={styles.buttonText}>Coba Sekarang</Text>
-          </TouchableOpacity>
+
+      <View style={styles.bodyPage}>
+        <Text style={styles.title1}>Simulasi Kredit</Text>
+        <Image source={Simulation} style={styles.image}/>
+        <Text style={styles.descText}>Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai kebutuhan dana pembelian rumah kebutuhan konsumtif.</Text>
+        <TouchableOpacity style={styles.buttonPrimary}>
+          <Text style={styles.buttonText}>Coba Sekarang</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.title1}>Produk Unggulan</Text>
+      <View style={styles.cardArea}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
+        <Image source={Office} style={styles.Office1}/>              
+            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
+            <View style={styles.lowerCard}>
+              <View style={{flexDirection:'row'}}>
+              <Icon name="file-percent-outline" color={'grey'} size={19} />
+              <Text style={{marginLeft:5}}>Kredit</Text>
+              </View>
+              <View style={styles.interest}>
+                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
+              </View>
+            </View>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
+        <Image source={Office} style={styles.Office1}/>              
+            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
+            <View style={styles.lowerCard}>
+              <View style={{flexDirection:'row'}}>
+              <Icon name="file-percent-outline" color={'grey'} size={19} />
+              <Text style={{marginLeft:5}}>Kredit</Text>
+              </View>
+              <View style={styles.interest}>
+                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
+              </View>
+            </View>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
+        <Image source={Office} style={styles.Office1}/>              
+            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
+            <View style={styles.lowerCard}>
+              <View style={{flexDirection:'row'}}>
+              <Icon name="file-percent-outline" color={'grey'} size={19} />
+              <Text style={{marginLeft:5}}>Kredit</Text>
+              </View>
+              <View style={styles.interest}>
+                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
+              </View>
+            </View>
+        </TouchableOpacity>
+        </ScrollView>
+      </View>
+      </View>
 
           <Text style={styles.title1}>Produk Unggulan</Text>
           <View style={styles.cardArea}>

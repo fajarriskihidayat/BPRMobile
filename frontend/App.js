@@ -19,19 +19,32 @@ import Atur from './src/screens/AturBunga';
 import Add from './src/screens/AddProduct';
 import Reset from './src/screens/Reset';
 import List from './src/screens/List';
+import SplashScreen from './src/screens/Splashscreen';
+import OnBoard1 from './src/screens/OnBoard1';
+import OnBoard2 from './src/screens/OnBoard2';
+import OnBoard3 from './src/screens/OnBoard3';
 
 //pemanggilan stack dan bottom tab
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// const HomeStack = () => {
-//   return(
-//   <Stack.Navigator screenOptions={{headerShown: false}}>
-//       <Stack.Screen name="Home" component={Homepage} />
-//       <Stack.Screen name="EditFlow" component={EditFlow} />
-//   </Stack.Navigator>
-//   );
-// }
+const HomeStack = () => {
+  return(
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Homepage" component={Homepage} />
+      <Stack.Screen name="SKredit" component={SKredit} />
+  </Stack.Navigator>
+  );
+}
+
+const ProductStack = () => {
+  return(
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Detail" component={Detail} />
+  </Stack.Navigator>
+  );
+}
 
 const RootHome = () => {
   return (
@@ -51,7 +64,7 @@ const RootHome = () => {
     >
       <Tab.Screen
         name="Homee"
-        component={Homepage}
+        component={HomeStack}
         // detachInactiveScreens={true}
         options={{
           tabBarLabel: '',
@@ -62,7 +75,7 @@ const RootHome = () => {
       />
       <Tab.Screen
         name="Add"
-        component={Profile}
+        component={ProductStack}
         // detachInactiveScreens={true}1
         options={{
           tabBarLabel: '',
@@ -108,6 +121,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name='Splashscreen' component={SplashScreen} />
+        <Stack.Screen name='OnBoard1' component={OnBoard1} />
+        <Stack.Screen name='OnBoard2' component={OnBoard2} />
+        <Stack.Screen name='OnBoard3' component={OnBoard3} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Homepage' component={RootHome} />

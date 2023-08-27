@@ -1,19 +1,19 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-//ini kodingan screen yang digunain dalam project 
-import Homepage from './src/screens/Homepage'; 
-import SKredit from './src/screens/Kredit'; 
-import Login from './src/screens/Login'; 
-import Register from './src/screens/Register'; 
-import Profile from './src/screens/Profile'; 
-import Detail from './src/screens/Detail'; 
-import User from './src/screens/User'; 
+//ini kodingan screen yang digunain dalam project
+import Homepage from './src/screens/Homepage';
+import SKredit from './src/screens/Kredit';
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
+import Profile from './src/screens/Profile';
+import Detail from './src/screens/Detail';
+import User from './src/screens/User';
 import Dashboard from './src/screens/Dashboard';
 import Contact from './src/screens/Contact';
 import Atur from './src/screens/AturBunga';
@@ -88,7 +88,7 @@ const RootHome = () => {
 
       <Tab.Screen
         name="User"
-        component={User}
+        component={User != null}
         detachInactiveScreens={true}
         options={{
           tabBarLabel: '',
@@ -105,20 +105,20 @@ const RootHome = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='Register' component={Register} />
-        <Stack.Screen name='Homepage' component={RootHome} />
-        <Stack.Screen name='SKredit' component={SKredit} />
-        <Stack.Screen name='Profile' component={Profile} />
-        <Stack.Screen name='Detail' component={Detail} />
-        <Stack.Screen name='User' component={User} />
-        <Stack.Screen name='Dashboard' component={Dashboard} />
-        <Stack.Screen name='Contact' component={Contact} />
-        <Stack.Screen name='Atur' component={Atur} />
-        <Stack.Screen name='AddProduct' component={Add} />
-        <Stack.Screen name='Reset' component={Reset} />
-        <Stack.Screen name='List' component={List} />
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Homepage" component={RootHome} />
+        <Stack.Screen name="SKredit" component={SKredit} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen name="User" component={User} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen name="Atur" component={Atur} />
+        <Stack.Screen name="AddProduct" component={Add} />
+        <Stack.Screen name="Reset" component={Reset} />
+        <Stack.Screen name="List" component={List} />
       </Stack.Navigator>
     </NavigationContainer>
   );

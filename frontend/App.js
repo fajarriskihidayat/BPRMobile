@@ -123,9 +123,9 @@ const App = () => {
         <Stack.Screen name="OnBoard1" component={OnBoard1} />
         <Stack.Screen name="OnBoard2" component={OnBoard2} />
         <Stack.Screen name="OnBoard3" component={OnBoard3} />
+        <Stack.Screen name="Homepage" component={RootHome} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Homepage" component={RootHome} />
         <Stack.Screen name="SKredit" component={SKredit} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Detail" component={Detail} />

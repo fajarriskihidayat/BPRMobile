@@ -71,6 +71,7 @@ router.put("/", async (req, res) => {
       );
 
       res.status(200).json({
+        status: 200,
         user: { updated: users[0] },
         metadata: "Update Data Success",
       });

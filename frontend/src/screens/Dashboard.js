@@ -17,16 +17,52 @@ import Logo from '../assets/Logo.png';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../api';
 
 const Dashboard = () => {
   const navigation = useNavigation();
+  const [bunga, setBunga] = useState(0);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: '8%', value: 8},
-    {label: '10%', value: 10},
-  ]);
+  const [items, setItems] = useState([]);
+
+  const getKredit = async () => {
+    try {
+      const {data} = await api.get(`products/all`);
+      const result = data.data.map(data => {
+        return {
+          label: data.nama,
+          value: data.nama,
+        };
+      });
+      setItems(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getDetail = async () => {
+    try {
+      const {data} = await api.get(`products/name/${value}`);
+      setBunga(data.data.suku_bunga);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getKredit();
+    getDetail();
+  }, [value]);
+
+  console.log('value', value);
+
+  const handleLogout = async () => {
+    await AsyncStorage.clear();
+    navigation.replace('Homepage');
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -45,7 +81,7 @@ const Dashboard = () => {
         </Text>
         <View style={styles.interestBox}>
           <View style={styles.interest}>
-            <Text style={{fontWeight: '700', color: 'white'}}>10%</Text>
+            <Text style={{fontWeight: '700', color: 'white'}}>{bunga}%</Text>
           </View>
           <DropDownPicker
             open={open}
@@ -96,7 +132,7 @@ const Dashboard = () => {
             <Text style={{fontWeight: '500'}}>List User</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={{fontWeight: '700', color: 'white'}}>Logout</Text>
         </TouchableOpacity>
       </View>

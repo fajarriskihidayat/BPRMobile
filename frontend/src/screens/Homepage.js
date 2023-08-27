@@ -65,13 +65,18 @@ const Homepage = ({navigation}) => {
           </View>
         </View>
 
-      <View style={styles.bodyPage}>
-        <Text style={styles.title1}>Simulasi Kredit</Text>
-        <Image source={Simulation} style={styles.image}/>
-        <Text style={styles.descText}>Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai kebutuhan dana pembelian rumah kebutuhan konsumtif.</Text>
-        <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('SKredit')}>
-          <Text style={styles.buttonText}>Coba Sekarang</Text>
-        </TouchableOpacity>
+        <View style={styles.bodyPage}>
+          <Text style={styles.title1}>Simulasi Kredit</Text>
+          <Image source={Simulation} style={styles.image} />
+          <Text style={styles.descText}>
+            Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai
+            kebutuhan dana pembelian rumah kebutuhan konsumtif.
+          </Text>
+          <TouchableOpacity
+            style={styles.buttonPrimary}
+            onPress={() => navigation.navigate('SKredit')}>
+            <Text style={styles.buttonText}>Coba Sekarang</Text>
+          </TouchableOpacity>
 
           <Text style={styles.title1}>Produk Unggulan</Text>
           <View style={styles.cardArea}>
@@ -82,8 +87,13 @@ const Homepage = ({navigation}) => {
                 <TouchableOpacity
                   style={[styles.productCard, styles.elevation]}
                   key={i}
-                  onPress={() => navigation.navigate('Detail', {id: data.id})}>
-                  <Image source={Office} style={styles.Office1} />
+                  onPress={() =>
+                    navigation.navigate('Detail', {nama: data.nama})
+                  }>
+                  <Image
+                    source={{uri: `${data.img_url}`}}
+                    style={styles.Office1}
+                  />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>
                     <View style={{flexDirection: 'row'}}>

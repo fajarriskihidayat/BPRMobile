@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -48,6 +48,21 @@ const ProductStack = () => {
 };
 
 const RootHome = () => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  const userLogin = async () => {
+    return await AsyncStorage.getItem('username');
+  };
+
+  useEffect(() => {
+    const checkUserLogin = async () => {
+      const username = await userLogin();
+      setUserLoggedIn(username !== null);
+    };
+
+    checkUserLogin();
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="HomePage"
@@ -61,6 +76,7 @@ const RootHome = () => {
           position: 'absolute',
           height: 75,
         },
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Homee"
@@ -101,7 +117,7 @@ const RootHome = () => {
 
       <Tab.Screen
         name="User"
-        component={User != null}
+        component={userLoggedIn ? User : Login}
         detachInactiveScreens={true}
         options={{
           tabBarLabel: '',
@@ -123,9 +139,9 @@ const App = () => {
         <Stack.Screen name="OnBoard1" component={OnBoard1} />
         <Stack.Screen name="OnBoard2" component={OnBoard2} />
         <Stack.Screen name="OnBoard3" component={OnBoard3} />
+        <Stack.Screen name="Homepage" component={RootHome} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Homepage" component={RootHome} />
         <Stack.Screen name="SKredit" component={SKredit} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Detail" component={Detail} />

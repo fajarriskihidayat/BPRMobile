@@ -31,6 +31,8 @@ const Login = () => {
         await AsyncStorage.setItem('password', password);
         await AsyncStorage.setItem('username', username);
         await AsyncStorage.setItem('name', response.data.user.nama);
+        await AsyncStorage.setItem('role', response.data.user.role);
+
         navigation.replace('Homepage');
       }
     } catch (error) {

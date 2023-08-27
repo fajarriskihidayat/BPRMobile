@@ -19,8 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const AturBunga = () => {
-  const navigation = useNavigation();
-    
+  const navigation = useNavigation(); 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
@@ -33,11 +32,41 @@ const AturBunga = () => {
     <Image source={Logo} style={styles.logo}/>
     </View>
     <View style={styles.header}>
-      <Text Text style={styles.title}>Welcome, Ferry</Text>
       <Image source={Office} style={styles.image} />
+      <Text Text style={[styles.title, {marginTop : 20}]}>Atur Suku Bunga</Text>
     </View>
     <View style={styles.body}>
-    </View>
+    <Text style={styles.formText}>Jenis Produk</Text>
+        <DropDownPicker
+      open={open}
+      value={value}
+      onSelectItem={(bunga) => setBunga(bunga)}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+      placeholderStyle={{
+          color: "grey",
+        }}
+      style={[styles.dropDown, styles.elevation]}
+      placeholder="Pilih kategori" 
+        />
+        <Text style={styles.formText}>Suku Bunga</Text>
+         <TextInput
+         style={[styles.input, styles.elevation]}
+         placeholder ="Suku Bunga"
+         placeholderTextColor={'#969595'}
+        //  onChangeText={(plafond) => setPlafond(plafond)}
+        //  value={plafond}
+         />
+
+      <TouchableOpacity style={styles.button}>
+          <Text style={{fontWeight:'700',color:'white'}}>Ubah</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonSecond}>
+          <Text style={{fontWeight:'700',color:'grey'}}>Back</Text>
+      </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -80,6 +109,42 @@ const styles = StyleSheet.create({
       height : 100,
       borderRadius : 20
     },
+    input : {
+      height : 50,
+      borderRadius : 10,
+      paddingHorizontal : 10,
+      fontSize : 17,
+      fontWeight : '300',
+      marginVertical : 10,
+      color : 'black',
+      marginBottom : 15
+    },
+    dropDown : {
+      marginTop : 10,
+      marginBottom : 20,
+      borderWidth : 0,
+    },
+    elevation: {
+      elevation: 1.5,
+      shadowColor: 'black',
+    },
+    button: {
+      height: 50,
+      backgroundColor: '#fc5453',
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical : 10,
+  },
+    buttonSecond: {
+      height: 50,
+      borderWidth : 2,
+      borderColor : 'grey',
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical : 10,
+  },
   })
 
 export default AturBunga

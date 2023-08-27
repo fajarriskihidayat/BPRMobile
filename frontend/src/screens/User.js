@@ -33,6 +33,17 @@ const User = () => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
+          <Text style={styles.username}>@Andi07</Text>
+          <Image source={ProfileP} style={styles.profilePicture} />
+          <Text style={styles.name}>Andisyah</Text>
+          <View style={styles.role}>
+            <Icon name="account-outline" color={'grey'} size={24} />
+            <Text style={styles.secondary}>Calon Nasabah</Text>
+          </View>
+          <View style={styles.role}>
+            <Icon name="circle-medium" color={'lime'} size={24} />
+            <Text style={[styles.secondary, {color: 'lime'}]}>Online</Text>
+          </View>
           <Image source={ProfileP} style={styles.profilePicture} />
         </View>
         <View style={styles.form}>
@@ -116,8 +127,28 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   profilePicture: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
+  },
+  username: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: '600',
+    color: '#393985',
+  },
+  name: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#393985',
+  },
+  role: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  secondary: {
+    fontSize: 15,
+    color: 'grey',
+    fontWeight: '500',
   },
 });
 

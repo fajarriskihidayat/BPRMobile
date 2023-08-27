@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -48,6 +48,21 @@ const ProductStack = () => {
 };
 
 const RootHome = () => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  const userLogin = async () => {
+    return await AsyncStorage.getItem('username');
+  };
+
+  useEffect(() => {
+    const checkUserLogin = async () => {
+      const username = await userLogin();
+      setUserLoggedIn(username !== null);
+    };
+
+    checkUserLogin();
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="HomePage"
@@ -61,6 +76,7 @@ const RootHome = () => {
           position: 'absolute',
           height: 75,
         },
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Homee"
@@ -101,7 +117,7 @@ const RootHome = () => {
 
       <Tab.Screen
         name="User"
-        component={User != null}
+        component={userLoggedIn ? User : Login}
         detachInactiveScreens={true}
         options={{
           tabBarLabel: '',

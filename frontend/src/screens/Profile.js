@@ -66,7 +66,9 @@ const Profile = ({navigation}) => {
                 <TouchableOpacity
                   style={[styles.productCard, styles.elevation]}
                   key={i}
-                  onPress={() => navigation.navigate('Detail', {id: data.id})}>
+                  onPress={() =>
+                    navigation.navigate('Detail', {nama: data.nama})
+                  }>
                   <Image source={Office} style={styles.Office} />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>

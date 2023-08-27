@@ -20,6 +20,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const User = () => {
   const navigation = useNavigation();
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const adminPage = async () => {
+      try {
+        const data = await AsyncStorage.getItem('role');
+        setRole(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    adminPage();
+  }, []);
+
+  console.log(role);
 
   const handleLogout = async () => {
     await AsyncStorage.clear();
@@ -44,15 +60,16 @@ const User = () => {
             <Icon name="circle-medium" color={'lime'} size={24} />
             <Text style={[styles.secondary, {color: 'lime'}]}>Online</Text>
           </View>
-          <Image source={ProfileP} style={styles.profilePicture} />
         </View>
         <View style={styles.form}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Dashboard')}>
-            <Text style={styles.textButton}>Masuk Admin</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnLogout}>
+          {role === 'admin' && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Dashboard')}>
+              <Text style={styles.textButton}>Masuk Admin</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity style={styles.btnLogout} onPress={handleLogout}>
             <Text style={styles.textLogout}>Logout</Text>
           </TouchableOpacity>
         </View>

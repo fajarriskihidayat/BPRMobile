@@ -15,9 +15,24 @@ import Simulation from '../assets/Simulation.png';
 import Logo from '../assets/Logo.png';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import api from '../api';
 
-const Homepage = () => {
-  const navigation = useNavigation();
+const Homepage = ({navigation}) => {
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    try {
+      const {data} = await api.get('products/all');
+      setProducts(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -49,7 +64,7 @@ const Homepage = () => {
             </TouchableOpacity>
           </View>
         </View>
-        
+
       <View style={styles.bodyPage}>
         <Text style={styles.title1}>Simulasi Kredit</Text>
         <Image source={Simulation} style={styles.image}/>
@@ -106,6 +121,38 @@ const Homepage = () => {
       </View>
       </View>
 
+          <Text style={styles.title1}>Produk Unggulan</Text>
+          <View style={styles.cardArea}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              {products.map((data, i) => (
+                <TouchableOpacity
+                  style={[styles.productCard, styles.elevation]}
+                  key={i}
+                  onPress={() => navigation.navigate('Detail', {id: data.id})}>
+                  <Image source={Office} style={styles.Office1} />
+                  <Text style={styles.cardText}>{data.nama}</Text>
+                  <View style={styles.lowerCard}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Icon
+                        name="file-percent-outline"
+                        color={'grey'}
+                        size={19}
+                      />
+                      <Text style={{marginLeft: 5}}>{data.jenis}</Text>
+                    </View>
+                    <View style={styles.interest}>
+                      <Text style={{fontWeight: '700', color: 'white'}}>
+                        {data.suku_bunga}%
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -182,114 +229,112 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '800',
   },
-  
-  Office1 : {
-    marginTop : 10,
-    width : 180,
-    height : 80,
-},
-  title : {
-    fontWeight : '800',
-    fontSize : 21
-  },
-  buttonArea : {
-    flexDirection : 'row',
-    marginTop : 20
-  },
-  image : {
-    marginTop : 20,
-  },
-  buttonNaviHome : {
-    backgroundColor : '#fc5453',
-    width : 113,
-    height : 100,
-    alignItems : 'center',
-    justifyContent : 'center',
-    borderRadius : 20,
-    marginRight : 10
 
+  Office1: {
+    marginTop: 10,
+    width: 180,
+    height: 80,
   },
-  textNaviHome : {
-    color : 'white',
-    fontWeight : '500',
-    fontSize : 12,
-    marginTop : 7,
+  title: {
+    fontWeight: '800',
+    fontSize: 21,
   },
-  bodyPage : {
-    paddingLeft : 20,
-    marginTop : 20,
-    marginBottom : 100
+  buttonArea: {
+    flexDirection: 'row',
+    marginTop: 20,
   },
-  descText : {
-    paddingRight : 20,
-    marginTop : 20
+  image: {
+    marginTop: 20,
   },
-  buttonPrimary : {
-    backgroundColor : '#fc5453',
-    alignItems : 'center',
-    borderRadius : 20,
-    paddingVertical : 10,
-    width : 160,
-    marginTop : 20
+  buttonNaviHome: {
+    backgroundColor: '#fc5453',
+    width: 113,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginRight: 10,
   },
-  product : {
-    marginTop : 20,
-    marginBottom : 200
+  textNaviHome: {
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 12,
+    marginTop: 7,
   },
-  buttonText : {
-    color : 'white',
-    fontWeight : '800',
+  bodyPage: {
+    paddingLeft: 20,
+    marginTop: 20,
+    marginBottom: 100,
+  },
+  descText: {
+    paddingRight: 20,
+    marginTop: 20,
+  },
+  buttonPrimary: {
+    backgroundColor: '#fc5453',
+    alignItems: 'center',
+    borderRadius: 20,
+    paddingVertical: 10,
+    width: 160,
+    marginTop: 20,
+  },
+  product: {
+    marginTop: 20,
+    marginBottom: 200,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '800',
   },
   elevation: {
     elevation: 1.5,
     shadowColor: 'black',
   },
-  cardText : {
-    marginTop : 10,
-    fontSize : 18,
-    fontWeight : '700',
-    color : '#393985'
+  cardText: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#393985',
   },
-  lowerCard : {
-    marginTop : 15,
-    flexDirection : 'row',
-    justifyContent : 'space-between'
+  lowerCard: {
+    marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  interest : {
-    backgroundColor : '#fc5453',
-    borderRadius : 20,
-    paddingHorizontal : 10,
-    paddingVertical : 5,
+  interest: {
+    backgroundColor: '#fc5453',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
-  title1 : {
-    fontWeight : '700',
-    color : '#393985',
-    fontSize : 17,
-    marginTop : 20
+  title1: {
+    fontWeight: '700',
+    color: '#393985',
+    fontSize: 17,
+    marginTop: 20,
   },
-  cardArea : {
-    flexDirection : 'row'
-},
-productCard : {
-    borderRadius : 15,
+  cardArea: {
+    flexDirection: 'row',
+  },
+  productCard: {
+    borderRadius: 15,
     // borderWidth : 1,
     // borderColor : 'black',
-    width : 200,
-    height : 200,
-    paddingHorizontal : 10,
-    marginVertical : 10,
-    marginRight : 15,
-},
-Office : {
-    marginTop : 10,
-    width : 180,
-    height : 80,
-},
-elevation: {
-  elevation: 1.5,
-  shadowColor: 'black',
-},
+    width: 200,
+    height: 200,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    marginRight: 15,
+  },
+  Office: {
+    marginTop: 10,
+    width: 180,
+    height: 80,
+  },
+  elevation: {
+    elevation: 1.5,
+    shadowColor: 'black',
+  },
 });
 
-export default Homepage
-
+export default Homepage;

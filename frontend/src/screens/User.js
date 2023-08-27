@@ -1,30 +1,36 @@
-import { 
-    View, 
-    Text,
-    Image,
-    StyleSheet, 
-    TextInput,
-    TouchableOpacity,
-    ImageBackground,
-    ToastAndroid,
-    ScrollView,
-  } from 'react-native'
-  import React, { useState, useEffect } from 'react'
-  import Office from '../assets/DBS.png'
-  import Profil from '../assets/Profile.png'
-  import ProfileP from '../assets/user.png'
-  import Logo from '../assets/Logo.png'
-  import { useNavigation } from '@react-navigation/native'
-  import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  ToastAndroid,
+  ScrollView,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import Office from '../assets/DBS.png';
+import Profil from '../assets/Profile.png';
+import ProfileP from '../assets/user.png';
+import Logo from '../assets/Logo.png';
+import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const User = () => {
-    const navigation = useNavigation();
-    return (
-  <View style={styles.container}>
+  const navigation = useNavigation();
+
+  const handleLogout = async () => {
+    await AsyncStorage.clear();
+    navigation.replace('Login');
+  };
+
+  return (
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.navbar}>
-        <Image source={Logo} style={styles.logo}/>
+          <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
         <Text style={styles.username}>@Andi07</Text>
@@ -42,9 +48,9 @@ const User = () => {
         Online
       </Text>
       </View>
+          <Image source={ProfileP} style={styles.profilePicture} />
         </View>
         <View style={styles.form}>
-            
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>
                 <Text style={styles.textButton}>Masuk Admin</Text>
             </TouchableOpacity>
@@ -54,8 +60,8 @@ const User = () => {
             </View>
     </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
     container : {
@@ -149,4 +155,4 @@ const styles = StyleSheet.create({
       },
 })
 
-export default User
+export default User;

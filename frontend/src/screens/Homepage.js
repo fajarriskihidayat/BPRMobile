@@ -51,13 +51,13 @@ const Homepage = ({navigation}) => {
               <Text style={styles.textNaviHome}>Simulasi Kredit</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonNaviHome}
-            onPress={() => navigation.navigate('SKredit')}
+            onPress={() => navigation.navigate('STabungan')}
             >
               <Icon name="piggy-bank-outline" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Tabungan</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonNaviHome}
-            onPress={() => navigation.navigate('SKredit')}
+            onPress={() => navigation.navigate('SDeposito')}
             >
               <Icon name="camera-timer" color={'white'} size={40} />
               <Text style={styles.textNaviHome}>Simulasi Deposito</Text>

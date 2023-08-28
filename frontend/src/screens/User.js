@@ -33,7 +33,6 @@ const User = () => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
-<<<<<<< HEAD
         <Text style={styles.username}>@Andi07</Text>
             <Image source={ProfileP} style={styles.profilePicture} />
         <Text style={styles.name}>Andisyah</Text>
@@ -49,9 +48,6 @@ const User = () => {
         Online
       </Text>
       </View>
-=======
->>>>>>> 983c41814e3aa24658fba3d23262ef65ba89f683
-          <Image source={ProfileP} style={styles.profilePicture} />
         </View>
         <View style={styles.form}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>

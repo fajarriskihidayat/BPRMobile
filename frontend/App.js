@@ -24,6 +24,8 @@ import SplashScreen from './src/screens/Splashscreen';
 import OnBoard1 from './src/screens/OnBoard1';
 import OnBoard2 from './src/screens/OnBoard2';
 import OnBoard3 from './src/screens/OnBoard3';
+import SDeposito from './src/screens/Deposito';
+import STabungan from './src/screens/Tabungan';
 
 //pemanggilan stack dan bottom tab
 const Stack = createStackNavigator();
@@ -34,6 +36,8 @@ const HomeStack = () => {
   <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Homepage" component={Homepage} />
       <Stack.Screen name="SKredit" component={SKredit} />
+      <Stack.Screen name="SKredit" component={STabungan} />
+      <Stack.Screen name="SKredit" component={SDeposito} />
   </Stack.Navigator>
   );
 }
@@ -61,6 +65,7 @@ const RootHome = () => {
           position: 'absolute',
           height: 75,
         },
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Homee"
@@ -127,6 +132,8 @@ const App = () => {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Homepage' component={RootHome} />
         <Stack.Screen name='SKredit' component={SKredit} />
+        <Stack.Screen name='SDeposito' component={SDeposito} />
+        <Stack.Screen name='STabungan' component={STabungan} />
         <Stack.Screen name='Profile' component={Profile} />
         <Stack.Screen name='Detail' component={Detail} />
         <Stack.Screen name='User' component={User} />

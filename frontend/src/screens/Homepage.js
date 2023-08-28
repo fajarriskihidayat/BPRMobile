@@ -73,54 +73,6 @@ const Homepage = ({navigation}) => {
           <Text style={styles.buttonText}>Coba Sekarang</Text>
         </TouchableOpacity>
 
-        <Text style={styles.title1}>Produk Unggulan</Text>
-      <View style={styles.cardArea}>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
-        <Image source={Office} style={styles.Office1}/>              
-            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
-            <View style={styles.lowerCard}>
-              <View style={{flexDirection:'row'}}>
-              <Icon name="file-percent-outline" color={'grey'} size={19} />
-              <Text style={{marginLeft:5}}>Kredit</Text>
-              </View>
-              <View style={styles.interest}>
-                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
-              </View>
-            </View>
-
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
-        <Image source={Office} style={styles.Office1}/>              
-            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
-            <View style={styles.lowerCard}>
-              <View style={{flexDirection:'row'}}>
-              <Icon name="file-percent-outline" color={'grey'} size={19} />
-              <Text style={{marginLeft:5}}>Kredit</Text>
-              </View>
-              <View style={styles.interest}>
-                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
-              </View>
-            </View>
-
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.productCard, styles.elevation]}>
-        <Image source={Office} style={styles.Office1}/>              
-            <Text style={styles.cardText}>Kredit Pemilikan Rumah</Text>
-            <View style={styles.lowerCard}>
-              <View style={{flexDirection:'row'}}>
-              <Icon name="file-percent-outline" color={'grey'} size={19} />
-              <Text style={{marginLeft:5}}>Kredit</Text>
-              </View>
-              <View style={styles.interest}>
-                <Text style={{fontWeight:'700',color:'white'}}>10%</Text>
-              </View>
-            </View>
-        </TouchableOpacity>
-        </ScrollView>
-      </View>
-      </View>
-
           <Text style={styles.title1}>Produk Unggulan</Text>
           <View style={styles.cardArea}>
             <ScrollView

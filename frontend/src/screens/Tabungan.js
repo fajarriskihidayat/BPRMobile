@@ -34,16 +34,16 @@ import {
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([]);
     const [tenor, setTenor] = useState([
-          {label: '1 tahun', value: 12},
-          {label: '2 tahun', value: 24},
-          {label: '3 tahun', value: 36},
-          {label: '4 tahun', value: 48},
-          {label: '5 tahun', value: 60},
-          {label: '6 tahun', value: 72},
-          {label: '7 tahun', value: 84},
-          {label: '8 tahun', value: 96},
-          {label: '9 tahun', value: 108},
-          {label: '10 tahun', value: 120},
+          {label: '1 bulan', value: 30},
+          {label: '2 bulan', value: 60},
+          {label: '3 bulan', value: 90},
+          {label: '4 bulan', value: 120},
+          {label: '5 bulan', value: 150},
+          {label: '6 bulan', value: 180},
+          {label: '7 bulan', value: 210},
+          {label: '8 bulan', value: 240},
+          {label: '9 bulan', value: 270},
+          {label: '10 bulan', value: 300},
         ]);
   
     const getKredit = async () => {
@@ -70,13 +70,25 @@ import {
     const result = async data => {
       let plafond = data.plafond;
       let tenor = data.tenor;
-      let hasil =
-        (parseInt(plafond) +
-          parseInt(plafond) * ((data.value / 100) * (parseInt(tenor) / 12))) /
-        parseInt(tenor);
-      console.log("angsuran per bulan = ", Math.round(hasil));
-      console.log(data.value);
-      let hasill = Math.round(hasil);
+      let bungaTab
+
+      if(plafond > 1000000 && plafond <= 25000000){
+        bungaTab = 1
+      }else if(plafond > 25000000 && plafond <= 50000000){
+        bungaTab = 2
+      }else if(plafond > 50000000 && plafond <= 100000000){
+        bungaTab = 2.5
+      }else if(plafond > 100000000){
+        bungaTab = 3
+      }else{
+        bungaTab = 0
+      }
+
+      console.log(bungaTab);
+      let hasil = (((parseInt(plafond) * (parseInt(bungaTab) /100)) * parseInt(tenor)) / 366)
+      // console.log("angsuran per bulan = ", Math.round(hasil));
+      // console.log(data.value);
+      let hasill = Math.round(hasil-(hasil * 0.2));
       setAngsuran(hasill);
     };
   
@@ -90,36 +102,24 @@ import {
             <Text style={styles.textTitle}>Simulasi Tabungan</Text>
           </View>
           <Image source={Office} style={styles.image} />
-          <Text style={styles.formText}>Jenis Kredit</Text>
-          <DropDownPicker
-            open={openProduct}
-            value={value}
-            onSelectItem={bunga => setBunga(bunga)}
-            items={items}
-            setOpen={setOpenProduct}
-            setValue={setValue}
-            setItems={setItems}
-            placeholderStyle={{
-              color: 'grey',
-            }}
-            dropDownContainerStyle={{
-            borderColor : 'lightgrey',
-            backgroundColor : 'white'
-            }}
-            style={[styles.dropDown, styles.elevation]}
-            placeholder="Pilih kategori"
+          <Text style={styles.formText}>Jenis Tabungan</Text>
+          <TextInput
+            style={[styles.input, styles.elevation]}
+            placeholder="Tabungan Sejahtera"
+            placeholderTextColor={'#494a49'}
+            editable={false}
           />
   
           <Text style={styles.formText}>Plafond Kredit</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Saldo Harian "
             placeholderTextColor={'#969595'}
             onChangeText={plafond => setPlafond(plafond)}
             value={plafond}
           />
   
-          <Text style={styles.formText}>Tenor/Jangka Waktu</Text>
+          <Text style={styles.formText}>Jangka Waktu</Text>
           <DropDownPicker
             open={openTime}
             value={waktu}
@@ -161,18 +161,30 @@ import {
             backdropTransitionOutTiming={200}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.textSuccess}>Submit Success</Text>
                 <View style={{marginVertical: 20}}>
-                  <Text>Jenis Kredit : {product}</Text>
-                  <Text>Plafond Kredit : Rp. {plafond}</Text>
-                  <Text>Jangka Waktu : {tenor} Bulan</Text>
-                  <Text>Angsuran per bulan : Rp. {angsuran}</Text>
+
+                <Text style={styles.textSuccess}>Hasil Simulasi</Text>
+              <View style={{marginVertical: 20}}>
+              <View style={styles.simRow}>
+                <Text style={styles.simText}>Jenis Kredit    {product}</Text>
+              </View>
+              <View style={styles.simRow}>
+                <Text style={styles.simText}>Plafond Kredit     Rp. {plafond}</Text>
+              </View>
+              <View style={styles.simRow}>
+              <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
+              </View>
+              <View style={styles.resultRow}>
+              <Text style={styles.resultText}>Bunga per bulan : Rp. {angsuran}</Text>
+              </View>
+              <Text style={{fontSize : 10, marginTop : 10}}>*Sudah termasuk pajak</Text>
                 </View>
                 <TouchableOpacity
                   style={styles.buttonClose}
                   onPress={toggleModal}>
                   <Text style={styles.btnCloseText}>Ok</Text>
                 </TouchableOpacity>
+              </View>
               </View>
             </View>
           </Modal>
@@ -290,6 +302,27 @@ import {
       fontWeight: 'bold',
       marginVertical: 10,
     },
+    simRow : {
+      borderBottomColor : 'lightgrey',
+      borderBottomWidth : 1,
+      paddingVertical : 5
+    },
+    resultRow : {
+      backgroundColor : '#fc5453',
+      paddingVertical : 7,
+      paddingHorizontal: 15,
+      marginTop : 20,
+      borderRadius : 20
+    },
+    simText : {
+      fontSize : 16,
+      fontWeight : '400',
+      color : 'black'
+    },
+    resultText : {
+      color : 'white',
+      fontWeight : '700',
+    }
   });
   
   export default Tabungan;

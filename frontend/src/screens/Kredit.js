@@ -161,12 +161,21 @@ const Kredit = () => {
           backdropTransitionOutTiming={200}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.textSuccess}>Submit Success</Text>
+              <Text style={styles.textSuccess}>Hasil Simulasi</Text>
               <View style={{marginVertical: 20}}>
-                <Text>Jenis Kredit : {product}</Text>
-                <Text>Plafond Kredit : Rp. {plafond}</Text>
-                <Text>Jangka Waktu : {tenor} Bulan</Text>
-                <Text>Angsuran per bulan : Rp. {angsuran}</Text>
+              <View style={styles.simRow}>
+                <Text style={styles.simText}>Jenis Kredit    {product}</Text>
+              </View>
+              <View style={styles.simRow}>
+                <Text style={styles.simText}>Plafond Kredit     Rp. {plafond}</Text>
+              </View>
+              <View style={styles.simRow}>
+              <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
+              </View>
+              <View style={styles.resultRow}>
+              <Text style={styles.resultText}>Angsuran per bulan : Rp. {angsuran}</Text>
+              </View>
+               
               </View>
               <TouchableOpacity
                 style={styles.buttonClose}
@@ -290,6 +299,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
+  simRow : {
+    borderBottomColor : 'lightgrey',
+    borderBottomWidth : 1,
+    paddingVertical : 5
+  },
+  resultRow : {
+    backgroundColor : '#fc5453',
+    paddingVertical : 7,
+    paddingHorizontal: 15,
+    marginTop : 20,
+    borderRadius : 20
+  },
+  simText : {
+    fontSize : 16,
+    fontWeight : '400',
+    color : 'black'
+  },
+  resultText : {
+    color : 'white',
+    fontWeight : '700',
+  }
 });
 
 export default Kredit;

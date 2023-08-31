@@ -13,10 +13,10 @@ router.get("/all", async (req, res) => {
   });
 });
 
-router.get("/name/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/name/:nama", async (req, res) => {
+  const { nama } = req.params;
 
-  const product = await ProductsModel.findOne({ where: { id: id } });
+  const product = await ProductsModel.findOne({ where: { nama: nama } });
 
   res.status(200).json({
     data: product,
@@ -45,23 +45,17 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { id, nama, jenis, suku_bunga, deskripsi, syarat, manfaat, img_url } =
-    req.body;
+  const { nama, suku_bunga } = req.body;
 
   const product = await ProductsModel.update(
     {
-      nama,
-      jenis,
       suku_bunga,
-      deskripsi,
-      syarat,
-      manfaat,
-      img_url,
     },
-    { where: { id: id } }
+    { where: { nama: nama } }
   );
 
   res.status(200).json({
+    status: 200,
     product: { updated: product[0] },
     metadata: "Update product success",
   });

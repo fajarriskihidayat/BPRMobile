@@ -20,6 +20,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const User = () => {
   const navigation = useNavigation();
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const adminPage = async () => {
+      try {
+        const data = await AsyncStorage.getItem('role');
+        setRole(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    adminPage();
+  }, []);
+
+  console.log(role);
 
   const handleLogout = async () => {
     await AsyncStorage.clear();
@@ -50,108 +66,111 @@ const User = () => {
       </View>
         </View>
         <View style={styles.form}>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>
-                <Text style={styles.textButton}>Masuk Admin</Text>
+          {role === 'admin' && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Dashboard')}>
+              <Text style={styles.textButton}>Masuk Admin</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnLogout} onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.textLogout}>Logout</Text>
-            </TouchableOpacity>
-            </View>
-    </ScrollView>
+          )}
+          <TouchableOpacity style={styles.btnLogout} onPress={handleLogout}>
+            <Text style={styles.textLogout}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container : {
-      flex : 1,
-      backgroundColor: 'white',
-    },
-    logo : {
-      width : 270,
-      height : 20,
-      marginTop : 5
-    },
-    body : {
-        alignItems : 'center',
-        marginTop : 20
-    },
-    navbar : {
-      backgroundColor : '#fc5453',
-      height : 50,
-      paddingLeft : 20,
-      flexDirection : 'row',
-      paddingVertical : 10,
-    },
-    
-    form : {
-        marginHorizontal : 45,
-        marginTop : 5
-      },
-        button: {
-            width: 300,
-            height: 50,
-            backgroundColor: '#fc5453',
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop : 20
-        },
-        textButton: {
-            color: '#FFF',
-            fontSize: 18,
-            fontWeight : '700'
-        },
-        formText : {
-            marginTop : 5,
-            marginBottom : 4
-        },
-        Text : {
-            color : '#323333',
-            fontWeight : '600',
-            fontSize : 16,
-        },
-        btnLogout: {
-            width: 300,
-            height: 50,
-            backgroundColor: 'white',
-            borderColor : '#a1a1a1',
-            borderWidth : 2, 
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop : 20,
-            marginBottom : 40,
-        },
-        textLogout: {
-            color: '#323333',
-            fontSize: 15,
-        },
-        profilePicture : {
-            width : 150,
-            height : 150,
-        },
-        username : {
-          fontSize : 18,
-          marginBottom : 10,
-          fontWeight : '600',
-          color : '#393985'
-        },
-        name : {
-          fontSize : 30,
-          fontWeight : '800',
-          color : '#393985'
-        },
-        role : {
-          flexDirection : 'row',
-          marginTop : 5
-        },
-        secondary : {
-          fontSize : 15,
-          color : 'grey',
-          fontWeight: '500',
-          
-      },
-})
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  logo: {
+    width: 270,
+    height: 20,
+    marginTop: 5,
+  },
+  body: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  navbar: {
+    backgroundColor: '#fc5453',
+    height: 50,
+    paddingLeft: 20,
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+
+  form: {
+    marginHorizontal: 45,
+    marginTop: 5,
+  },
+  button: {
+    width: 300,
+    height: 50,
+    backgroundColor: '#fc5453',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  textButton: {
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  formText: {
+    marginTop: 5,
+    marginBottom: 4,
+  },
+  Text: {
+    color: '#323333',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  btnLogout: {
+    width: 300,
+    height: 50,
+    backgroundColor: 'white',
+    borderColor: '#a1a1a1',
+    borderWidth: 2,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  textLogout: {
+    color: '#323333',
+    fontSize: 15,
+  },
+  profilePicture: {
+    width: 150,
+    height: 150,
+  },
+  username: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: '600',
+    color: '#393985',
+  },
+  name: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#393985',
+  },
+  role: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  secondary: {
+    fontSize: 15,
+    color: 'grey',
+    fontWeight: '500',
+  },
+});
 
 export default User;

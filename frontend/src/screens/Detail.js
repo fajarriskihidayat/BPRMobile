@@ -18,13 +18,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import api from '../api';
 
 const Detail = ({navigation, route}) => {
-  const {id} = route.params;
+  const {nama} = route.params;
   const [products, setProducts] = useState([]);
   const [detail, setDetail] = useState({});
 
   const getDetail = async () => {
     try {
-      const {data} = await api.get(`products/name/${id}`);
+      const {data} = await api.get(`products/name/${nama}`);
       setDetail(data.data);
     } catch (error) {
       console.log(error);
@@ -81,7 +81,9 @@ const Detail = ({navigation, route}) => {
                 <TouchableOpacity
                   style={[styles.productCard, styles.elevation]}
                   key={i}
-                  onPress={() => navigation.replace('Detail', {id: data.id})}>
+                  onPress={() =>
+                    navigation.replace('Detail', {nama: data.nama})
+                  }>
                   <Image source={Office} style={styles.Office} />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>

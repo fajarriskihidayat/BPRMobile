@@ -44,9 +44,9 @@ const Homepage = ({navigation}) => {
           <Text style={styles.title}>BPR Dana Bintan Sejahtera</Text>
           <Image source={Office} style={styles.image} />
           <View style={styles.buttonArea}>
-            <TouchableOpacity style={styles.buttonNaviHome}
-            onPress={() => navigation.navigate('SKredit')}
-            >
+            <TouchableOpacity
+              style={styles.buttonNaviHome}
+              onPress={() => navigation.navigate('SKredit')}>
               <Icon name="water-percent" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Kredit</Text>
             </TouchableOpacity>
@@ -82,8 +82,13 @@ const Homepage = ({navigation}) => {
                 <TouchableOpacity
                   style={[styles.productCard, styles.elevation]}
                   key={i}
-                  onPress={() => navigation.navigate('Detail', {id: data.id})}>
-                  <Image source={Office} style={styles.Office1} />
+                  onPress={() =>
+                    navigation.navigate('Detail', {nama: data.nama})
+                  }>
+                  <Image
+                    source={{uri: `${data.img_url}`}}
+                    style={styles.Office1}
+                  />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>
                     <View style={{flexDirection: 'row'}}>

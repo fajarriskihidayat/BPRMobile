@@ -175,7 +175,6 @@ const Kredit = () => {
               <View style={styles.resultRow}>
               <Text style={styles.resultText}>Angsuran per bulan : Rp. {angsuran}</Text>
               </View>
-               
               </View>
               <TouchableOpacity
                 style={styles.buttonClose}

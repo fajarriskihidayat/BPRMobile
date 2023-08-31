@@ -1,19 +1,19 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-//ini kodingan screen yang digunain dalam project 
-import Homepage from './src/screens/Homepage'; 
-import SKredit from './src/screens/Kredit'; 
-import Login from './src/screens/Login'; 
-import Register from './src/screens/Register'; 
-import Profile from './src/screens/Profile'; 
-import Detail from './src/screens/Detail'; 
-import User from './src/screens/User'; 
+//ini kodingan screen yang digunain dalam project
+import Homepage from './src/screens/Homepage';
+import SKredit from './src/screens/Kredit';
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
+import Profile from './src/screens/Profile';
+import Detail from './src/screens/Detail';
+import User from './src/screens/User';
 import Dashboard from './src/screens/Dashboard';
 import Contact from './src/screens/Contact';
 import Atur from './src/screens/AturBunga';
@@ -32,26 +32,41 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
-  return(
-  <Stack.Navigator screenOptions={{headerShown: false}}>
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Homepage" component={Homepage} />
       <Stack.Screen name="SKredit" component={SKredit} />
       <Stack.Screen name="SKredit" component={STabungan} />
       <Stack.Screen name="SKredit" component={SDeposito} />
   </Stack.Navigator>
   );
-}
+};
 
 const ProductStack = () => {
-  return(
-  <Stack.Navigator screenOptions={{headerShown: false}}>
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Detail" component={Detail} />
-  </Stack.Navigator>
+    </Stack.Navigator>
   );
-}
+};
 
 const RootHome = () => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  const userLogin = async () => {
+    return await AsyncStorage.getItem('username');
+  };
+
+  useEffect(() => {
+    const checkUserLogin = async () => {
+      const username = await userLogin();
+      setUserLoggedIn(username !== null);
+    };
+
+    checkUserLogin();
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="HomePage"
@@ -106,7 +121,7 @@ const RootHome = () => {
 
       <Tab.Screen
         name="User"
-        component={User}
+        component={userLoggedIn ? User : Login}
         detachInactiveScreens={true}
         options={{
           tabBarLabel: '',

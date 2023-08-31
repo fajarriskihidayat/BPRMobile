@@ -17,7 +17,7 @@ import Modal from 'react-native-modal';
 import Office from '../assets/DBS.png';
 import api from '../api';
 
-const Kredit = () => {
+const Deposito = () => {
   const [product, setProduct] = React.useState('');
   const [bunga, setBunga] = React.useState('');
   const [jangka, setJangka] = React.useState('');
@@ -34,16 +34,10 @@ const Kredit = () => {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
   const [tenor, setTenor] = useState([
-        {label: '1 tahun', value: 12},
-        {label: '2 tahun', value: 24},
-        {label: '3 tahun', value: 36},
-        {label: '4 tahun', value: 48},
-        {label: '5 tahun', value: 60},
-        {label: '6 tahun', value: 72},
-        {label: '7 tahun', value: 84},
-        {label: '8 tahun', value: 96},
-        {label: '9 tahun', value: 108},
-        {label: '10 tahun', value: 120},
+        {label: '1 bulan', value: 1},
+        {label: '3 bulan', value: 3},
+        {label: '6 bulan', value: 6},
+        {label: '12 bulan', value: 12},
       ]);
 
   const getKredit = async () => {
@@ -70,13 +64,35 @@ const Kredit = () => {
   const result = async data => {
     let plafond = data.plafond;
     let tenor = data.tenor;
-    let hasil =
-      (parseInt(plafond) +
-        parseInt(plafond) * ((data.value / 100) * (parseInt(tenor) / 12))) /
-      parseInt(tenor);
-    console.log("angsuran per bulan = ", Math.round(hasil));
-    console.log(data.value);
-    let hasill = Math.round(hasil);
+    let bungaTab
+
+    if(plafond < 100000000){
+      if(tenor == 1){
+        bungaTab = 425
+      }else if(tenor == 3){
+        bungaTab = 45
+      }else if(tenor == 6){
+        bungaTab = 475
+      }else if(tenor == 12){
+        bungaTab = 475
+      }
+    }else{
+      if(tenor == 1){
+        bungaTab = 525
+      }else if(tenor == 3){
+        bungaTab = 575
+      }else if(tenor == 6){
+        bungaTab = 6
+      }else if(tenor == 12){
+        bungaTab = 6
+      }
+    }
+
+    console.log(bungaTab);
+    let hasil = (((parseInt(plafond) * (parseInt(bungaTab) /100)) * 30) / 366)
+    // console.log("angsuran per bulan = ", Math.round(hasil));
+    // console.log(data.value);
+    let hasill = Math.round(hasil-(hasil * 0.2));
     setAngsuran(hasill);
   };
 
@@ -87,39 +103,27 @@ const Kredit = () => {
       </View>
       <View style={styles.body}>
         <View style={{alignItems: 'center'}}>
-          <Text style={styles.textTitle}>Simulasi Kredit</Text>
+          <Text style={styles.textTitle}>Simulasi Deposito</Text>
         </View>
         <Image source={Office} style={styles.image} />
-        <Text style={styles.formText}>Jenis Kredit</Text>
-        <DropDownPicker
-          open={openProduct}
-          value={value}
-          onSelectItem={bunga => setBunga(bunga)}
-          items={items}
-          setOpen={setOpenProduct}
-          setValue={setValue}
-          setItems={setItems}
-          placeholderStyle={{
-            color: 'grey',
-          }}
-          dropDownContainerStyle={{
-          borderColor : 'lightgrey',
-          backgroundColor : 'white'
-          }}
-          style={[styles.dropDown, styles.elevation]}
-          placeholder="Pilih kategori"
-        />
-
-        <Text style={styles.formText}>Plafond Kredit</Text>
+        <Text style={styles.formText}>Jenis Deposito</Text>
         <TextInput
           style={[styles.input, styles.elevation]}
-          placeholder="Plafond Kredit"
+          placeholder="Deposito Sejahtera"
+          placeholderTextColor={'#494a49'}
+          editable={false}
+        />
+
+        <Text style={styles.formText}>Penempatan Dana</Text>
+        <TextInput
+          style={[styles.input, styles.elevation]}
+          placeholder="Penempatan Dana "
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
           value={plafond}
         />
 
-        <Text style={styles.formText}>Tenor/Jangka Waktu</Text>
+        <Text style={styles.formText}>Jangka Waktu</Text>
         <DropDownPicker
           open={openTime}
           value={waktu}
@@ -161,26 +165,30 @@ const Kredit = () => {
           backdropTransitionOutTiming={200}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.textSuccess}>Hasil Simulasi</Text>
               <View style={{marginVertical: 20}}>
-              <View style={styles.simRow}>
-                <Text style={styles.simText}>Jenis Kredit    {product}</Text>
-              </View>
-              <View style={styles.simRow}>
-                <Text style={styles.simText}>Plafond Kredit     Rp. {plafond}</Text>
-              </View>
-              <View style={styles.simRow}>
-              <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
-              </View>
-              <View style={styles.resultRow}>
-              <Text style={styles.resultText}>Angsuran per bulan : Rp. {angsuran}</Text>
-              </View>
+
+              <Text style={styles.textSuccess}>Hasil Simulasi</Text>
+            <View style={{marginVertical: 20}}>
+            <View style={styles.simRow}>
+              <Text style={styles.simText}>Jenis Produk    Deposito Sejahtera</Text>
+            </View>
+            <View style={styles.simRow}>
+              <Text style={styles.simText}>Penempatan Dana     Rp. {plafond}</Text>
+            </View>
+            <View style={styles.simRow}>
+            <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
+            </View>
+            <View style={styles.resultRow}>
+            <Text style={styles.resultText}>Hasil Deposito : Rp. {angsuran}</Text>
+            </View>
+            <Text style={{fontSize : 10, marginTop : 10}}>*Sudah termasuk pajak</Text>
               </View>
               <TouchableOpacity
                 style={styles.buttonClose}
                 onPress={toggleModal}>
                 <Text style={styles.btnCloseText}>Ok</Text>
               </TouchableOpacity>
+            </View>
             </View>
           </View>
         </Modal>
@@ -321,4 +329,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Kredit;
+export default Deposito;

@@ -50,33 +50,28 @@ const Homepage = ({navigation}) => {
               <Icon name="water-percent" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Kredit</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonNaviHome}
-              onPress={() => navigation.navigate('SKredit')}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('STabungan')}
+            >
               <Icon name="piggy-bank-outline" color={'white'} size={48} />
               <Text style={styles.textNaviHome}>Simulasi Tabungan</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonNaviHome}
-              onPress={() => navigation.navigate('SKredit')}>
+            <TouchableOpacity style={styles.buttonNaviHome}
+            onPress={() => navigation.navigate('SDeposito')}
+            >
               <Icon name="camera-timer" color={'white'} size={40} />
               <Text style={styles.textNaviHome}>Simulasi Deposito</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.bodyPage}>
-          <Text style={styles.title1}>Simulasi Kredit</Text>
-          <Image source={Simulation} style={styles.image} />
-          <Text style={styles.descText}>
-            Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai
-            kebutuhan dana pembelian rumah kebutuhan konsumtif.
-          </Text>
-          <TouchableOpacity
-            style={styles.buttonPrimary}
-            onPress={() => navigation.navigate('SKredit')}>
-            <Text style={styles.buttonText}>Coba Sekarang</Text>
-          </TouchableOpacity>
+      <View style={styles.bodyPage}>
+        <Text style={styles.title1}>Simulasi Kredit</Text>
+        <Image source={Simulation} style={styles.image}/>
+        <Text style={styles.descText}>Penyediaan dana kepada perorangan/pengusaha/profesi untuk membiayai kebutuhan dana pembelian rumah kebutuhan konsumtif.</Text>
+        <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('SKredit')}>
+          <Text style={styles.buttonText}>Coba Sekarang</Text>
+        </TouchableOpacity>
 
           <Text style={styles.title1}>Produk Unggulan</Text>
           <View style={styles.cardArea}>

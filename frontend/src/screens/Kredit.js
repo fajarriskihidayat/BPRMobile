@@ -27,30 +27,31 @@ const Kredit = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  
+
   const [openProduct, setOpenProduct] = useState(false);
   const [openTime, setOpenTime] = useState(false);
   const [waktu, setWaktu] = useState(null);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
   const [tenor, setTenor] = useState([
-        {label: '1 tahun', value: 12},
-        {label: '2 tahun', value: 24},
-        {label: '3 tahun', value: 36},
-        {label: '4 tahun', value: 48},
-        {label: '5 tahun', value: 60},
-        {label: '6 tahun', value: 72},
-        {label: '7 tahun', value: 84},
-        {label: '8 tahun', value: 96},
-        {label: '9 tahun', value: 108},
-        {label: '10 tahun', value: 120},
-      ]);
+    {label: '1 tahun', value: 12},
+    {label: '2 tahun', value: 24},
+    {label: '3 tahun', value: 36},
+    {label: '4 tahun', value: 48},
+    {label: '5 tahun', value: 60},
+    {label: '6 tahun', value: 72},
+    {label: '7 tahun', value: 84},
+    {label: '8 tahun', value: 96},
+    {label: '9 tahun', value: 108},
+    {label: '10 tahun', value: 120},
+  ]);
 
   const getKredit = async () => {
     try {
       const {data} = await api.get(`products/all`);
-      const result = data.data.map(data => {
-        setProduct(data.nama)
+      const result = data.data.map((data, i) => {
+        setProduct(data.nama);
+
         return {
           label: data.nama,
           value: data.suku_bunga,
@@ -74,7 +75,7 @@ const Kredit = () => {
       (parseInt(plafond) +
         parseInt(plafond) * ((data.value / 100) * (parseInt(tenor) / 12))) /
       parseInt(tenor);
-    console.log("angsuran per bulan = ", Math.round(hasil));
+    console.log('angsuran per bulan = ', Math.round(hasil));
     console.log(data.value);
     let hasill = Math.round(hasil);
     setAngsuran(hasill);
@@ -103,8 +104,8 @@ const Kredit = () => {
             color: 'grey',
           }}
           dropDownContainerStyle={{
-          borderColor : 'lightgrey',
-          backgroundColor : 'white'
+            borderColor: 'lightgrey',
+            backgroundColor: 'white',
           }}
           style={[styles.dropDown, styles.elevation]}
           placeholder="Pilih kategori"
@@ -132,8 +133,8 @@ const Kredit = () => {
             color: 'grey',
           }}
           dropDownContainerStyle={{
-          borderColor : 'lightgrey',
-          backgroundColor : 'white'
+            borderColor: 'lightgrey',
+            backgroundColor: 'white',
           }}
           style={[styles.dropDown, styles.elevation]}
           placeholder="Pilih Jangka Waktu"
@@ -163,18 +164,22 @@ const Kredit = () => {
             <View style={styles.modalView}>
               <Text style={styles.textSuccess}>Hasil Simulasi</Text>
               <View style={{marginVertical: 20}}>
-              <View style={styles.simRow}>
-                <Text style={styles.simText}>Jenis Kredit    {product}</Text>
-              </View>
-              <View style={styles.simRow}>
-                <Text style={styles.simText}>Plafond Kredit     Rp. {plafond}</Text>
-              </View>
-              <View style={styles.simRow}>
-              <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
-              </View>
-              <View style={styles.resultRow}>
-              <Text style={styles.resultText}>Angsuran per bulan : Rp. {angsuran}</Text>
-              </View>
+                <View style={styles.simRow}>
+                  <Text style={styles.simText}>Jenis Kredit {product}</Text>
+                </View>
+                <View style={styles.simRow}>
+                  <Text style={styles.simText}>
+                    Plafond Kredit Rp. {plafond}
+                  </Text>
+                </View>
+                <View style={styles.simRow}>
+                  <Text style={styles.simText}>Jangka Waktu {waktu} Bulan</Text>
+                </View>
+                <View style={styles.resultRow}>
+                  <Text style={styles.resultText}>
+                    Angsuran per bulan : Rp. {angsuran}
+                  </Text>
+                </View>
               </View>
               <TouchableOpacity
                 style={styles.buttonClose}
@@ -298,27 +303,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  simRow : {
-    borderBottomColor : 'lightgrey',
-    borderBottomWidth : 1,
-    paddingVertical : 5
+  simRow: {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    paddingVertical: 5,
   },
-  resultRow : {
-    backgroundColor : '#fc5453',
-    paddingVertical : 7,
+  resultRow: {
+    backgroundColor: '#fc5453',
+    paddingVertical: 7,
     paddingHorizontal: 15,
-    marginTop : 20,
-    borderRadius : 20
+    marginTop: 20,
+    borderRadius: 20,
   },
-  simText : {
-    fontSize : 16,
-    fontWeight : '400',
-    color : 'black'
+  simText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
   },
-  resultText : {
-    color : 'white',
-    fontWeight : '700',
-  }
+  resultText: {
+    color: 'white',
+    fontWeight: '700',
+  },
 });
 
 export default Kredit;

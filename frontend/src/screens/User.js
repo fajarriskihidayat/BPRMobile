@@ -39,7 +39,7 @@ const User = () => {
 
   const handleLogout = async () => {
     await AsyncStorage.clear();
-    navigation.replace('Login');
+    navigation.replace('Homepage');
   };
 
   return (
@@ -49,21 +49,17 @@ const User = () => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
-        <Text style={styles.username}>@Andi07</Text>
-            <Image source={ProfileP} style={styles.profilePicture} />
-        <Text style={styles.name}>Andisyah</Text>
-        <View style={styles.role}>
-        <Icon name="account-outline" color={'grey'} size={24} />
-        <Text style={styles.secondary}>
-        Calon Nasabah
-      </Text>
-      </View>
-        <View style={styles.role}>
-        <Icon name="circle-medium" color={'lime'} size={24} />
-        <Text style={[styles.secondary,{color:'lime'}]}>
-        Online
-      </Text>
-      </View>
+          <Text style={styles.username}>@Andi07</Text>
+          <Image source={ProfileP} style={styles.profilePicture} />
+          <Text style={styles.name}>Andisyah</Text>
+          <View style={styles.role}>
+            <Icon name="account-outline" color={'grey'} size={24} />
+            <Text style={styles.secondary}>Calon Nasabah</Text>
+          </View>
+          <View style={styles.role}>
+            <Icon name="circle-medium" color={'lime'} size={24} />
+            <Text style={[styles.secondary, {color: 'lime'}]}>Online</Text>
+          </View>
         </View>
         <View style={styles.form}>
           {role === 'admin' && (

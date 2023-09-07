@@ -20,13 +20,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const User = () => {
   const navigation = useNavigation();
-  const [role, setRole] = useState('');
+  const [data, setData] = useState({
+    name: '',
+    usernmae: '',
+    role: '',
+  });
 
   useEffect(() => {
     const adminPage = async () => {
       try {
-        const data = await AsyncStorage.getItem('role');
-        setRole(data);
+        const role = await AsyncStorage.getItem('role');
+        const username = await AsyncStorage.getItem('username');
+        const name = await AsyncStorage.getItem('name');
+        setData({
+          name: name,
+          usernmae: username,
+          role: role,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -34,8 +44,6 @@ const User = () => {
 
     adminPage();
   }, []);
-
-  console.log(role);
 
   const handleLogout = async () => {
     await AsyncStorage.clear();
@@ -49,9 +57,9 @@ const User = () => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
-          <Text style={styles.username}>@Andi07</Text>
+          <Text style={styles.username}>{data.usernmae}</Text>
           <Image source={ProfileP} style={styles.profilePicture} />
-          <Text style={styles.name}>Andisyah</Text>
+          <Text style={styles.name}>{data.name}</Text>
           <View style={styles.role}>
             <Icon name="account-outline" color={'grey'} size={24} />
             <Text style={styles.secondary}>Calon Nasabah</Text>
@@ -62,7 +70,7 @@ const User = () => {
           </View>
         </View>
         <View style={styles.form}>
-          {role === 'admin' && (
+          {data.role === 'admin' && (
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate('Dashboard')}>

@@ -73,7 +73,9 @@ const Reset = () => {
           onPress={async () => await editPassword()}>
           <Text style={{fontWeight: '700', color: 'white'}}>Ubah</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSecond}>
+        <TouchableOpacity
+          style={styles.buttonSecond}
+          onPress={() => navigation.goBack()}>
           <Text style={{fontWeight: '700', color: 'grey'}}>Back</Text>
         </TouchableOpacity>
       </View>

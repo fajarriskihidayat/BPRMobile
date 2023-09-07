@@ -35,7 +35,6 @@ const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Homepage" component={Homepage} />
-
       <Stack.Screen name="SKredit" component={SKredit} />
       <Stack.Screen name="STabungan" component={STabungan} />
       <Stack.Screen name="SDeposito" component={SDeposito} />

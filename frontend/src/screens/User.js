@@ -62,7 +62,9 @@ const User = () => {
           <Text style={styles.name}>{data.name}</Text>
           <View style={styles.role}>
             <Icon name="account-outline" color={'grey'} size={24} />
-            <Text style={styles.secondary}>Calon Nasabah</Text>
+            <Text style={styles.secondary}>
+              {data.role === 'admin' ? 'Admin' : 'Calon Nasabah'}
+            </Text>
           </View>
           <View style={styles.role}>
             <Icon name="circle-medium" color={'lime'} size={24} />

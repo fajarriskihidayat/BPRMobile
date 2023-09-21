@@ -11,13 +11,12 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Office from '../assets/DBS.png';
-import Profil from '../assets/Profile.png';
-import ProfileP from '../assets/user.png';
 import Logo from '../assets/Logo.png';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import DropDownPicker from 'react-native-dropdown-picker';
 import api from '../api';
+import reactNativeHtmlToPdf from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const List = () => {
   const navigation = useNavigation();
@@ -32,11 +31,48 @@ const List = () => {
     }
   };
 
+  const generatePdf = async () => {
+    const results = await reactNativeHtmlToPdf.convert({
+      html: `<style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          padding: 8px;
+        }
+      </style>
+      <h1>Data Calon Nasabah</h1>
+      <table style="width:100%;">
+        <tr>
+          <th>No</th>
+          <th>Username</th>
+          <th>Nama</th>
+          <th>No. HP</th>
+        </tr>
+        ${users
+          .map(
+            (data, i) => `
+          <tr key=${i}>
+            <td style="text-align:center">${i + 1}</td>
+            <td>${data.username}</td>
+            <td>${data.nama}</td>
+            <td>${data.no_hp}</td>
+          </tr>
+        `,
+          )
+          .join('')}
+      </table>`,
+      fileName: 'Data_Calon_Nasabah',
+      base64: true,
+    });
+
+    // const file = await reactNativeHtmlToPdf.convert(options);
+    // console.log(file);
+    await RNPrint.print({filePath: results.filePath});
+  };
+
   useEffect(() => {
     listUser();
   }, []);
-
-  console.log('users', users);
 
   return (
     <View style={styles.container}>
@@ -46,9 +82,15 @@ const List = () => {
         </View>
         <View style={styles.header}>
           <Image source={Office} style={styles.image} />
-          <Text Text style={[styles.title, {marginTop: 20}]}>
-            List User
-          </Text>
+          <View style={styles.conTitle}>
+            <Text Text style={styles.title}>
+              List User
+            </Text>
+            <TouchableOpacity style={styles.btn} onPress={generatePdf}>
+              <Icon name="printer" size={20} color={'#fff'} />
+              <Text style={styles.btnText}>Cetak</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.body}>
           <View style={styles.tableHead}>
@@ -114,6 +156,27 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     paddingTop: 20,
+  },
+  conTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  btn: {
+    backgroundColor: '#fc5453',
+    height: 36,
+    paddingHorizontal: 16,
+    borderRadius: 4,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 4,
   },
   title: {
     fontWeight: '800',

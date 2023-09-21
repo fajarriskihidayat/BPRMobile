@@ -39,6 +39,7 @@ router.post("/", async (req, res) => {
   });
 
   res.status(200).json({
+    status: 200,
     data: product,
     metadata: "Create product success",
   });

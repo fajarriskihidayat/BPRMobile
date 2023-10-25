@@ -113,7 +113,7 @@ const Kredit = () => {
 
         <Text style={styles.formText}>Plafond Kredit</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Plafond Kredit"
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
@@ -263,6 +263,8 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginVertical: 10,
     color: 'black',
+    backgroundColor: 'white',
+    elevation: 1.5,
   },
   dropDown: {
     marginTop: 10,

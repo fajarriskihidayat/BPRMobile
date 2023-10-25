@@ -64,12 +64,12 @@ const Profile = ({navigation}) => {
               showsHorizontalScrollIndicator={false}>
               {products.map((data, i) => (
                 <TouchableOpacity
-                  style={[styles.productCard, styles.elevation]}
+                  style={[styles.productCard]}
                   key={i}
                   onPress={() =>
                     navigation.navigate('Detail', {nama: data.nama})
                   }>
-                  <Image source={Office} style={styles.Office} />
+                  <Image source={{uri: data.img_url}} style={styles.Office} />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>
                     <View style={{flexDirection: 'row'}}>
@@ -111,7 +111,7 @@ const Profile = ({navigation}) => {
           </View>
           <View style={styles.lokasi}>
             <Text style={styles.title1}>Kantor pusat dan cabang</Text>
-            <View style={[styles.locCard, styles.elevation]}>
+            <View style={[styles.locCard]}>
               <View style={styles.locArea}>
                 <View style={styles.locIcon}>
                   <Icon name="office-building" color={'white'} size={40} />
@@ -128,7 +128,7 @@ const Profile = ({navigation}) => {
                 </View>
               </View>
             </View>
-            <View style={[styles.locCard, styles.elevation]}>
+            <View style={[styles.locCard]}>
               <View style={styles.locArea}>
                 <View style={styles.locIcon}>
                   <Icon name="office-building" color={'white'} size={40} />
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
   },
   productCard: {
     borderRadius: 15,
-    // borderWidth : 1,
-    // borderColor : 'black',
+    backgroundColor: 'white',
+    elevation: 1,
     width: 200,
     height: 200,
     paddingHorizontal: 10,
@@ -256,6 +256,8 @@ const styles = StyleSheet.create({
     marginBottom: 130,
   },
   locCard: {
+    backgroundColor: 'white',
+    elevation: 1.5,
     marginTop: 20,
     borderRadius: 20,
     height: 80,

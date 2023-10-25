@@ -27,24 +27,24 @@ const Deposito = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  
+
   const [openProduct, setOpenProduct] = useState(false);
   const [openTime, setOpenTime] = useState(false);
   const [waktu, setWaktu] = useState(null);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
   const [tenor, setTenor] = useState([
-        {label: '1 bulan', value: 1},
-        {label: '3 bulan', value: 3},
-        {label: '6 bulan', value: 6},
-        {label: '12 bulan', value: 12},
-      ]);
+    {label: '1 bulan', value: 1},
+    {label: '3 bulan', value: 3},
+    {label: '6 bulan', value: 6},
+    {label: '12 bulan', value: 12},
+  ]);
 
   const getKredit = async () => {
     try {
       const {data} = await api.get(`products/all`);
       const result = data.data.map(data => {
-        setProduct(data.nama)
+        setProduct(data.nama);
         return {
           label: data.nama,
           value: data.suku_bunga,
@@ -64,35 +64,35 @@ const Deposito = () => {
   const result = async data => {
     let plafond = data.plafond;
     let tenor = data.tenor;
-    let bungaTab
+    let bungaTab;
 
-    if(plafond < 100000000){
-      if(tenor == 1){
-        bungaTab = 425
-      }else if(tenor == 3){
-        bungaTab = 45
-      }else if(tenor == 6){
-        bungaTab = 475
-      }else if(tenor == 12){
-        bungaTab = 475
+    if (plafond < 100000000) {
+      if (tenor == 1) {
+        bungaTab = 425;
+      } else if (tenor == 3) {
+        bungaTab = 45;
+      } else if (tenor == 6) {
+        bungaTab = 475;
+      } else if (tenor == 12) {
+        bungaTab = 475;
       }
-    }else{
-      if(tenor == 1){
-        bungaTab = 525
-      }else if(tenor == 3){
-        bungaTab = 575
-      }else if(tenor == 6){
-        bungaTab = 6
-      }else if(tenor == 12){
-        bungaTab = 6
+    } else {
+      if (tenor == 1) {
+        bungaTab = 525;
+      } else if (tenor == 3) {
+        bungaTab = 575;
+      } else if (tenor == 6) {
+        bungaTab = 6;
+      } else if (tenor == 12) {
+        bungaTab = 6;
       }
     }
 
     console.log(bungaTab);
-    let hasil = (((parseInt(plafond) * (parseInt(bungaTab) /100)) * 30) / 366)
+    let hasil = (parseInt(plafond) * (parseInt(bungaTab) / 100) * 30) / 366;
     // console.log("angsuran per bulan = ", Math.round(hasil));
     // console.log(data.value);
-    let hasill = Math.round(hasil-(hasil * 0.2));
+    let hasill = Math.round(hasil - hasil * 0.2);
     setAngsuran(hasill);
   };
 
@@ -108,7 +108,7 @@ const Deposito = () => {
         <Image source={Office} style={styles.image} />
         <Text style={styles.formText}>Jenis Deposito</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Deposito Sejahtera"
           placeholderTextColor={'#494a49'}
           editable={false}
@@ -116,7 +116,7 @@ const Deposito = () => {
 
         <Text style={styles.formText}>Penempatan Dana</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Penempatan Dana "
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
@@ -136,8 +136,8 @@ const Deposito = () => {
             color: 'grey',
           }}
           dropDownContainerStyle={{
-          borderColor : 'lightgrey',
-          backgroundColor : 'white'
+            borderColor: 'lightgrey',
+            backgroundColor: 'white',
           }}
           style={[styles.dropDown, styles.elevation]}
           placeholder="Pilih Jangka Waktu"
@@ -166,29 +166,38 @@ const Deposito = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={{marginVertical: 20}}>
-
-              <Text style={styles.textSuccess}>Hasil Simulasi</Text>
-            <View style={{marginVertical: 20}}>
-            <View style={styles.simRow}>
-              <Text style={styles.simText}>Jenis Produk    Deposito Sejahtera</Text>
-            </View>
-            <View style={styles.simRow}>
-              <Text style={styles.simText}>Penempatan Dana     Rp. {plafond}</Text>
-            </View>
-            <View style={styles.simRow}>
-            <Text style={styles.simText}>Jangka Waktu     {waktu} Bulan</Text>
-            </View>
-            <View style={styles.resultRow}>
-            <Text style={styles.resultText}>Hasil Deposito : Rp. {angsuran}</Text>
-            </View>
-            <Text style={{fontSize : 10, marginTop : 10}}>*Sudah termasuk pajak</Text>
+                <Text style={styles.textSuccess}>Hasil Simulasi</Text>
+                <View style={{marginVertical: 20}}>
+                  <View style={styles.simRow}>
+                    <Text style={styles.simText}>
+                      Jenis Produk Deposito Sejahtera
+                    </Text>
+                  </View>
+                  <View style={styles.simRow}>
+                    <Text style={styles.simText}>
+                      Penempatan Dana Rp. {plafond}
+                    </Text>
+                  </View>
+                  <View style={styles.simRow}>
+                    <Text style={styles.simText}>
+                      Jangka Waktu {waktu} Bulan
+                    </Text>
+                  </View>
+                  <View style={styles.resultRow}>
+                    <Text style={styles.resultText}>
+                      Hasil Deposito : Rp. {angsuran}
+                    </Text>
+                  </View>
+                  <Text style={{fontSize: 10, marginTop: 10}}>
+                    *Sudah termasuk pajak
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.buttonClose}
+                  onPress={toggleModal}>
+                  <Text style={styles.btnCloseText}>Ok</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={styles.buttonClose}
-                onPress={toggleModal}>
-                <Text style={styles.btnCloseText}>Ok</Text>
-              </TouchableOpacity>
-            </View>
             </View>
           </View>
         </Modal>
@@ -266,6 +275,8 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginVertical: 10,
     color: 'black',
+    backgroundColor: 'white',
+    elevation: 1.5,
   },
   dropDown: {
     marginTop: 10,
@@ -306,27 +317,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  simRow : {
-    borderBottomColor : 'lightgrey',
-    borderBottomWidth : 1,
-    paddingVertical : 5
+  simRow: {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    paddingVertical: 5,
   },
-  resultRow : {
-    backgroundColor : '#fc5453',
-    paddingVertical : 7,
+  resultRow: {
+    backgroundColor: '#fc5453',
+    paddingVertical: 7,
     paddingHorizontal: 15,
-    marginTop : 20,
-    borderRadius : 20
+    marginTop: 20,
+    borderRadius: 20,
   },
-  simText : {
-    fontSize : 16,
-    fontWeight : '400',
-    color : 'black'
+  simText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
   },
-  resultText : {
-    color : 'white',
-    fontWeight : '700',
-  }
+  resultText: {
+    color: 'white',
+    fontWeight: '700',
+  },
 });
 
 export default Deposito;

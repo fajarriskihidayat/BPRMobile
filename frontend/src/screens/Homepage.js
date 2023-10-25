@@ -106,7 +106,7 @@ const Homepage = ({navigation}) => {
               showsHorizontalScrollIndicator={false}>
               {products.map((data, i) => (
                 <TouchableOpacity
-                  style={[styles.productCard, styles.elevation]}
+                  style={[styles.productCard]}
                   key={i}
                   onPress={() =>
                     navigation.navigate('Detail', {nama: data.nama})
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   elevation: {
-    elevation: 1.5,
+    // elevation: 1.5,
     shadowColor: 'black',
   },
   cardText: {
@@ -301,8 +301,8 @@ const styles = StyleSheet.create({
   },
   productCard: {
     borderRadius: 15,
-    // borderWidth : 1,
-    // borderColor : 'black',
+    backgroundColor: 'white',
+    elevation: 1.5,
     width: 200,
     height: 200,
     paddingHorizontal: 10,

@@ -52,7 +52,7 @@ const Detail = ({navigation, route}) => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
-          <Image source={Office} style={styles.image} />
+          <Image source={{uri: `${detail.img_url}`}} style={styles.image} />
           <Text style={styles.title}>{detail.nama}</Text>
           <View style={styles.catWrap}>
             <Icon name="file-percent-outline" color={'grey'} size={23} />
@@ -79,12 +79,12 @@ const Detail = ({navigation, route}) => {
               showsHorizontalScrollIndicator={false}>
               {products.map((data, i) => (
                 <TouchableOpacity
-                  style={[styles.productCard, styles.elevation]}
+                  style={[styles.productCard]}
                   key={i}
                   onPress={() =>
                     navigation.replace('Detail', {nama: data.nama})
                   }>
-                  <Image source={Office} style={styles.Office} />
+                  <Image source={{uri: data.img_url}} style={styles.Office} />
                   <Text style={styles.cardText}>{data.nama}</Text>
                   <View style={styles.lowerCard}>
                     <View style={{flexDirection: 'row'}}>
@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
   },
   productCard: {
     borderRadius: 15,
-    // borderWidth : 1,
-    // borderColor : 'black',
+    backgroundColor: 'white',
+    elevation: 1.5,
     width: 200,
     height: 200,
     paddingHorizontal: 10,
@@ -210,6 +210,11 @@ const styles = StyleSheet.create({
     color: '#393985',
     fontSize: 17,
     marginTop: 40,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
   },
 });
 

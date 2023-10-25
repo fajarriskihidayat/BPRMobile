@@ -93,7 +93,7 @@ const AturBunga = () => {
 
         <Text style={styles.formText}>Suku Bunga</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Suku Bunga"
           placeholderTextColor={'#969595'}
           onChangeText={bunga => setSukuBunga(bunga)}
@@ -161,6 +161,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: 'black',
     marginBottom: 15,
+    backgroundColor: 'white',
+    elevation: 1.5,
   },
   dropDown: {
     marginTop: 10,

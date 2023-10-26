@@ -74,21 +74,21 @@ const AddProduct = () => {
           <Text style={styles.formText}>Nama Produk</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Nama Produk"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, nama: v})}
           />
           <Text style={styles.formText}>Jenis Produk</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Jenis Produk"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, jenis: capitalFirstWord(v)})}
           />
           <Text style={styles.formText}>Suku Bunga</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Suku Bunga"
             placeholderTextColor={'#969595'}
             keyboardType="numeric"
             onChangeText={v => setData({...data, bunga: v})}
@@ -96,28 +96,28 @@ const AddProduct = () => {
           <Text style={styles.formText}>Deskripsi</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Deskripsi"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, deskripsi: v})}
           />
           <Text style={styles.formText}>Syarat</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Syarat"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, syarat: v})}
           />
           <Text style={styles.formText}>Manfaat</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="Manfaat"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, manfaat: v})}
           />
           <Text style={styles.formText}>URL Foto</Text>
           <TextInput
             style={[styles.input, styles.elevation]}
-            placeholder="Plafond Kredit"
+            placeholder="URL Foto"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, url: v})}
           />

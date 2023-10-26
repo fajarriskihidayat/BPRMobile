@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
         height : 80,
         paddingVertical : 8,
         paddingHorizontal : 10,
+        backgroundColor : 'white'
       },
       locArea : {
         flexDirection : 'row',

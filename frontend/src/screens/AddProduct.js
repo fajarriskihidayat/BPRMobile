@@ -37,6 +37,18 @@ const AddProduct = () => {
   }
 
   const handleAddProduct = async () => {
+    if (
+      !data.nama ||
+      !data.jenis ||
+      !data.bunga ||
+      !data.deskripsi ||
+      !data.syarat ||
+      !data.manfaat ||
+      !data.url
+    ) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
     try {
       const res = await api.post('products', {
         nama: data.nama,

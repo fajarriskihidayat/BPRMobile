@@ -24,6 +24,10 @@ const Reset = () => {
   const [baru, setBaru] = useState('');
 
   const editPassword = async () => {
+    if (!lama || !baru) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
     try {
       const user = await AsyncStorage.getItem('username');
       const res = await api.put('users', {

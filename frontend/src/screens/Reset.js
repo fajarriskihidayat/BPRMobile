@@ -55,14 +55,14 @@ const Reset = () => {
       <View style={styles.body}>
         <Text style={styles.formText}>Password lama</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Password lama"
           placeholderTextColor={'#969595'}
           onChangeText={lama => setLama(lama)}
         />
         <Text style={styles.formText}>Password Baru</Text>
         <TextInput
-          style={[styles.input, styles.elevation]}
+          style={[styles.input]}
           placeholder="Password Baru"
           placeholderTextColor={'#969595'}
           onChangeText={baru => setBaru(baru)}
@@ -130,6 +130,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: 'black',
     marginBottom: 15,
+    backgroundColor: 'white',
+    elevation: 1.5,
   },
   dropDown: {
     marginBottom: 20,

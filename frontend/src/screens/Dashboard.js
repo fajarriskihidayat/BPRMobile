@@ -23,6 +23,7 @@ import api from '../api';
 const Dashboard = () => {
   const navigation = useNavigation();
   const [bunga, setBunga] = useState(0);
+  const [name, setName] = useState('');
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -30,6 +31,7 @@ const Dashboard = () => {
 
   const getKredit = async () => {
     try {
+      const user = await AsyncStorage.getItem('name');
       const {data} = await api.get(`products/all`);
       const result = data.data.map(data => {
         return {
@@ -37,6 +39,7 @@ const Dashboard = () => {
           value: data.nama,
         };
       });
+      setName(user);
       setItems(result);
     } catch (error) {
       console.log(error);
@@ -71,7 +74,7 @@ const Dashboard = () => {
       </View>
       <View style={styles.header}>
         <Text Text style={styles.title}>
-          Welcome, Ferry
+          Welcome, {name}
         </Text>
         <Image source={Office} style={styles.image} />
       </View>
@@ -104,13 +107,13 @@ const Dashboard = () => {
         </View>
         <View style={styles.DashboardAreaTop}>
           <TouchableOpacity
-            style={[styles.naviButton, styles.elevation]}
+            style={[styles.naviButton]}
             onPress={() => navigation.navigate('Atur')}>
             <Icon name="water-percent" color={'grey'} size={68} />
             <Text style={{fontWeight: '500'}}>Atur Suku Bunga</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.naviButton, styles.elevation]}
+            style={[styles.naviButton]}
             onPress={() => navigation.navigate('AddProduct')}>
             <Icon name="plus-box-multiple-outline" color={'grey'} size={58} />
             <Text style={{fontWeight: '500', marginTop: 5}}>Tambah Produk</Text>
@@ -118,7 +121,7 @@ const Dashboard = () => {
         </View>
         <View style={styles.DashboardAreaTop}>
           <TouchableOpacity
-            style={[styles.naviButton, styles.elevation]}
+            style={[styles.naviButton]}
             onPress={() => navigation.navigate('Reset')}>
             <Icon name="lock-open-outline" color={'grey'} size={58} />
             <Text style={{fontWeight: '500', marginTop: 5}}>
@@ -126,12 +129,17 @@ const Dashboard = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.naviButton, styles.elevation]}
+            style={[styles.naviButton]}
             onPress={() => navigation.navigate('List')}>
             <Icon name="account-details-outline" color={'grey'} size={58} />
             <Text style={{fontWeight: '500'}}>List User</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.btnSecondary}
+          onPress={() => navigation.replace('Homepage')}>
+          <Text style={{fontWeight: '700', color: '#fc5453'}}>Homepage</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={{fontWeight: '700', color: 'white'}}>Logout</Text>
         </TouchableOpacity>
@@ -214,6 +222,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 20,
+    backgroundColor: 'white',
+    elevation: 3,
   },
   elevation: {
     elevation: 1.5,
@@ -225,6 +235,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnSecondary: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#fc5453',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
   },
 });
 

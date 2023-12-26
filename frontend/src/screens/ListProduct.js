@@ -18,61 +18,32 @@ import reactNativeHtmlToPdf from 'react-native-html-to-pdf';
 import RNPrint from 'react-native-print';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const List = () => {
+const ListProduct = () => {
   const navigation = useNavigation();
-  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const listUser = async () => {
+  const deleteProduct = async id => {
     try {
-      const {data} = await api.get('users/all');
-      setUsers(data.data);
+      await api.delete(`products/${id}`);
+
+      ToastAndroid.show('Hapus data berhasil', ToastAndroid.SHORT);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const generatePdf = async () => {
-    const results = await reactNativeHtmlToPdf.convert({
-      html: `<style>
-        table, th, td {
-          border: 1px solid black;
-          border-collapse: collapse;
-          padding: 8px;
-        }
-      </style>
-      <h1>Data Calon Nasabah</h1>
-      <table style="width:100%;">
-        <tr>
-          <th>No</th>
-          <th>Username</th>
-          <th>Nama</th>
-          <th>No. HP</th>
-        </tr>
-        ${users
-          .map(
-            (data, i) => `
-          <tr key=${i}>
-            <td style="text-align:center">${i + 1}</td>
-            <td>${data.username}</td>
-            <td>${data.nama}</td>
-            <td>${data.no_hp}</td>
-          </tr>
-        `,
-          )
-          .join('')}
-      </table>`,
-      fileName: 'Data_Calon_Nasabah',
-      base64: true,
-    });
-
-    // const file = await reactNativeHtmlToPdf.convert(options);
-    // console.log(file);
-    await RNPrint.print({filePath: results.filePath});
+  const listProducts = async () => {
+    try {
+      const {data} = await api.get('products/all');
+      setProducts(data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    listUser();
-  }, []);
+    listProducts();
+  }, [products]);
 
   return (
     <View style={styles.container}>
@@ -84,12 +55,8 @@ const List = () => {
           <Image source={Office} style={styles.image} />
           <View style={styles.conTitle}>
             <Text Text style={styles.title}>
-              List User
+              List Produk
             </Text>
-            <TouchableOpacity style={styles.btn} onPress={generatePdf}>
-              <Icon name="printer" size={20} color={'#fff'} />
-              <Text style={styles.btnText}>Cetak</Text>
-            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.body}>
@@ -97,31 +64,52 @@ const List = () => {
             <View style={[styles.tableHeader, {marginRight: 10}]}>
               <Text style={styles.thText}>No</Text>
             </View>
-            <View style={[styles.tableHeader, {marginRight: 20}]}>
-              <Text style={styles.thText}>Username</Text>
-            </View>
-            <View style={[styles.tableHeader, {marginRight: 40}]}>
-              <Text style={styles.thText}>Nama</Text>
+            <View style={[styles.tableHeader, {marginRight: 116}]}>
+              <Text style={styles.thText}>Nama Produk</Text>
             </View>
             <View style={[styles.tableHeader, {marginRight: 10}]}>
-              <Text style={styles.thText}>No. HP</Text>
+              <Text style={styles.thText}>Aksi</Text>
             </View>
           </View>
-          {users.map((data, i) => (
+          {products.map((data, i) => (
             <View style={styles.tableBody} key={i}>
               <View style={styles.tableRow}>
                 <View
                   style={[styles.rowWrap, {marginRight: 40, marginLeft: 15}]}>
                   <Text style={styles.rowText}>{i + 1}</Text>
                 </View>
-                <View style={[styles.rowWrap, {marginRight: 50}]}>
-                  <Text style={styles.rowText}>{data.username}</Text>
-                </View>
-                <View style={[styles.rowWrap, {marginRight: 20}]}>
+                <View style={[styles.rowWrap, {width: 228}]}>
                   <Text style={styles.rowText}>{data.nama}</Text>
                 </View>
-                <View style={[styles.rowWrap, {marginRight: 10}]}>
-                  <Text style={styles.rowText}>{data.no_hp}</Text>
+                <View
+                  style={[
+                    styles.rowWrap,
+                    {marginRight: 20, flexDirection: 'row'},
+                  ]}>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: 'orange',
+                      padding: 4,
+                      borderRadius: 2,
+                      marginRight: 2,
+                    }}
+                    onPress={() =>
+                      navigation.navigate('EditProduct', {
+                        id: data.id,
+                        name: data.nama,
+                      })
+                    }>
+                    <Icon name="pencil" size={20} color={'white'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: 'red',
+                      padding: 4,
+                      borderRadius: 2,
+                    }}
+                    onPress={async () => await deleteProduct(data.id)}>
+                    <Icon name="trash-can" size={20} color={'white'} />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -215,4 +203,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default List;
+export default ListProduct;

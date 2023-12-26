@@ -46,13 +46,20 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { nama, suku_bunga } = req.body;
+  const { id, nama, jenis, suku_bunga, deskripsi, syarat, manfaat, img_url } =
+    req.body;
 
   const product = await ProductsModel.update(
     {
+      nama,
+      jenis,
       suku_bunga,
+      deskripsi,
+      syarat,
+      manfaat,
+      img_url,
     },
-    { where: { nama: nama } }
+    { where: { id: id } }
   );
 
   res.status(200).json({

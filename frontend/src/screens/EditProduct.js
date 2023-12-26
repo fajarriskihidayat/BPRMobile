@@ -17,16 +17,18 @@ import Logo from '../assets/Logo.png';
 import {useNavigation} from '@react-navigation/native';
 import api from '../api';
 
-const AddProduct = () => {
+const EditProduct = ({route}) => {
+  const {id, name} = route.params;
   const navigation = useNavigation();
   const [data, setData] = useState({
+    id: +id,
     nama: '',
     jenis: '',
-    bunga: 0,
+    suku_bunga: 0,
     deskripsi: '',
     syarat: '',
     manfaat: '',
-    url: '',
+    img_url: '',
   });
 
   function capitalFirstWord(str) {
@@ -36,39 +38,43 @@ const AddProduct = () => {
     return besar + kecil;
   }
 
-  const handleAddProduct = async () => {
+  const editKredit = async () => {
     if (
       !data.nama ||
       !data.jenis ||
-      !data.bunga ||
+      !data.suku_bunga ||
       !data.deskripsi ||
       !data.syarat ||
       !data.manfaat ||
-      !data.url
+      !data.img_url
     ) {
       return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
     }
 
     try {
-      const res = await api.post('products', {
-        nama: data.nama,
-        jenis: data.jenis,
-        suku_bunga: data.bunga,
-        deskripsi: data.deskripsi,
-        syarat: data.syarat,
-        manfaat: data.manfaat,
-        img_url: data.url,
-      });
+      const res = await api.put('products', data);
 
       if (res.data.status === 200) {
-        ToastAndroid.show('Produk berhasil ditambahkan', ToastAndroid.SHORT);
+        ToastAndroid.show('Data berhasil diubah', ToastAndroid.SHORT);
         navigation.replace('Dashboard');
       }
     } catch (error) {
-      ToastAndroid.show('Gagal tambah produk', ToastAndroid.SHORT);
       console.log(error);
     }
   };
+
+  const getOne = async () => {
+    try {
+      const {data} = await api.get(`products/name/${name}`);
+      setData(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getOne();
+  }, []);
 
   return (
     <ScrollView>
@@ -79,64 +85,71 @@ const AddProduct = () => {
         <View style={styles.header}>
           <Image source={Office} style={styles.image} />
           <Text Text style={[styles.title, {marginTop: 20}]}>
-            Tambah Produk
+            Edit Produk
           </Text>
         </View>
         <View style={styles.body}>
           <Text style={styles.formText}>Nama Produk</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan nama"
+            placeholder="Masukan nama"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, nama: v})}
+            value={data.nama}
           />
           <Text style={styles.formText}>Jenis Produk</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan jenis"
+            placeholder="Masukan jenis"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, jenis: capitalFirstWord(v)})}
+            value={data.jenis}
           />
           <Text style={styles.formText}>Suku Bunga</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan suku bunga"
+            placeholder="Masukan suku bunga"
             placeholderTextColor={'#969595'}
             keyboardType="numeric"
-            onChangeText={v => setData({...data, bunga: v})}
+            onChangeText={v => setData({...data, suku_bunga: +v})}
+            value={data.suku_bunga.toString()}
           />
           <Text style={styles.formText}>Deskripsi</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan deskripsi"
+            placeholder="Masukan deskripsi"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, deskripsi: v})}
+            value={data.deskripsi}
           />
           <Text style={styles.formText}>Syarat</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan syarat"
+            placeholder="Masukan syarat"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, syarat: v})}
+            value={data.syarat}
           />
           <Text style={styles.formText}>Manfaat</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan manfaat"
+            placeholder="Masukan manfaat"
             placeholderTextColor={'#969595'}
             onChangeText={v => setData({...data, manfaat: v})}
+            value={data.manfaat}
           />
           <Text style={styles.formText}>URL Foto</Text>
           <TextInput
             style={[styles.input]}
-            placeholder="Masukkan url"
+            placeholder="Masukan url"
             placeholderTextColor={'#969595'}
-            onChangeText={v => setData({...data, url: v})}
+            onChangeText={v => setData({...data, img_url: v})}
+            value={data.img_url}
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={async () => await handleAddProduct()}>
-            <Text style={{fontWeight: '700', color: 'white'}}>Tambah</Text>
+            onPress={async () => await editKredit()}>
+            <Text style={{fontWeight: '700', color: 'white'}}>Edit</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonSecond}
@@ -226,4 +239,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddProduct;
+export default EditProduct;

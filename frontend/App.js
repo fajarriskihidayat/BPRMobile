@@ -26,6 +26,8 @@ import OnBoard2 from './src/screens/OnBoard2';
 import OnBoard3 from './src/screens/OnBoard3';
 import SDeposito from './src/screens/Deposito';
 import STabungan from './src/screens/Tabungan';
+import ListProduct from './src/screens/ListProduct';
+import EditProduct from './src/screens/EditProduct';
 
 //pemanggilan stack dan bottom tab
 const Stack = createStackNavigator();
@@ -76,20 +78,22 @@ const RootHome = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: '#393985',
-          paddingVertical: 10,
           position: 'absolute',
-          height: 75,
+          height: 70,
         },
         tabBarHideOnKeyboard: true,
+        tabBarItemStyle: {
+          paddingVertical: 8,
+        },
       }}>
       <Tab.Screen
         name="Homee"
         component={HomeStack}
         // detachInactiveScreens={true}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Beranda',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home-outline" color={color} size={40} />
+            <Icon name="home-outline" color={color} size={36} />
           ),
         }}
       />
@@ -98,10 +102,10 @@ const RootHome = () => {
         component={ProductStack}
         // detachInactiveScreens={true}1
         options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Profil',
           tabBarIcon: ({color, size}) => (
             // <View style={{backgroundColor:'orange',padding:5,borderRadius: 30}}>
-            <Icon name="office-building" color={color} size={40} />
+            <Icon name="office-building" color={color} size={36} />
             // </View>
           ),
         }}
@@ -112,9 +116,9 @@ const RootHome = () => {
         component={Contact}
         detachInactiveScreens={true}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Kontak',
           tabBarIcon: ({color, size}) => (
-            <Icon name="contacts" color={color} size={40} />
+            <Icon name="phone" color={color} size={36} />
           ),
         }}
       />
@@ -124,9 +128,9 @@ const RootHome = () => {
         component={userLoggedIn ? User : Login}
         detachInactiveScreens={true}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Akun',
           tabBarIcon: ({color, size}) => (
-            <Icon name="account" color={color} size={40} />
+            <Icon name="account" color={color} size={36} />
           ),
         }}
       />
@@ -162,6 +166,8 @@ const App = () => {
         <Stack.Screen name="AddProduct" component={Add} />
         <Stack.Screen name="Reset" component={Reset} />
         <Stack.Screen name="List" component={List} />
+        <Stack.Screen name="ListProduct" component={ListProduct} />
+        <Stack.Screen name="EditProduct" component={EditProduct} />
       </Stack.Navigator>
     </NavigationContainer>
   );

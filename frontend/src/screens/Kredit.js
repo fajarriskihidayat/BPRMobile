@@ -33,18 +33,32 @@ const Kredit = () => {
   const [waktu, setWaktu] = useState(null);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
-  const [tenor, setTenor] = useState([
-    {label: '1 tahun', value: 12},
-    {label: '2 tahun', value: 24},
-    {label: '3 tahun', value: 36},
-    {label: '4 tahun', value: 48},
-    {label: '5 tahun', value: 60},
-    {label: '6 tahun', value: 72},
-    {label: '7 tahun', value: 84},
-    {label: '8 tahun', value: 96},
-    {label: '9 tahun', value: 108},
-    {label: '10 tahun', value: 120},
-  ]);
+  const [tenor, setTenor] = useState([]);
+
+  useEffect(() => {
+    if (plafond.length < 9) {
+      setTenor([
+        {label: '1 tahun', value: 12},
+        {label: '2 tahun', value: 24},
+        {label: '3 tahun', value: 36},
+        {label: '4 tahun', value: 48},
+        {label: '5 tahun', value: 60},
+      ]);
+    } else {
+      setTenor([
+        {label: '1 tahun', value: 12},
+        {label: '2 tahun', value: 24},
+        {label: '3 tahun', value: 36},
+        {label: '4 tahun', value: 48},
+        {label: '5 tahun', value: 60},
+        {label: '6 tahun', value: 72},
+        {label: '7 tahun', value: 84},
+        {label: '8 tahun', value: 96},
+        {label: '9 tahun', value: 108},
+        {label: '10 tahun', value: 120},
+      ]);
+    }
+  }, [plafond]);
 
   const getKredit = async () => {
     try {
@@ -69,6 +83,20 @@ const Kredit = () => {
   }, []);
 
   const result = async data => {
+    console.log(data);
+
+    if (!data.value || !data.plafond || !data.tenor) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
+    if (data.plafond !== '1000000000') {
+      if (data.plafond.length >= 10)
+        return ToastAndroid.show(
+          'Pinjaman tidak boleh lebih dari 1 Miliar',
+          ToastAndroid.LONG,
+        );
+    }
+
     let plafond = data.plafond;
     let tenor = data.tenor;
     let hasil =
@@ -79,6 +107,8 @@ const Kredit = () => {
     console.log(data.value);
     let hasill = Math.round(hasil);
     setAngsuran(hasill);
+
+    setModalVisible(true);
   };
 
   return (
@@ -114,6 +144,7 @@ const Kredit = () => {
         <Text style={styles.formText}>Plafond Kredit</Text>
         <TextInput
           style={[styles.input]}
+          keyboardType="numeric"
           placeholder="Plafond Kredit"
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
@@ -148,7 +179,6 @@ const Kredit = () => {
               plafond: plafond,
               tenor: waktu,
             });
-            setModalVisible(true);
           }}>
           <Text style={{color: 'white', fontWeight: '700', fontSize: 18}}>
             Hitung
@@ -165,15 +195,17 @@ const Kredit = () => {
               <Text style={styles.textSuccess}>Hasil Simulasi</Text>
               <View style={{marginVertical: 20}}>
                 <View style={styles.simRow}>
-                  <Text style={styles.simText}>Jenis Kredit {product}</Text>
+                  <Text style={styles.simText}>Jenis Kredit: {product}</Text>
                 </View>
                 <View style={styles.simRow}>
                   <Text style={styles.simText}>
-                    Plafond Kredit Rp. {plafond}
+                    Plafond Kredit: Rp. {plafond}
                   </Text>
                 </View>
                 <View style={styles.simRow}>
-                  <Text style={styles.simText}>Jangka Waktu {waktu} Bulan</Text>
+                  <Text style={styles.simText}>
+                    Jangka Waktu: {waktu} Bulan
+                  </Text>
                 </View>
                 <View style={styles.resultRow}>
                   <Text style={styles.resultText}>
@@ -286,7 +318,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#fc5453',
-    width: 150,
+    width: 250,
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,

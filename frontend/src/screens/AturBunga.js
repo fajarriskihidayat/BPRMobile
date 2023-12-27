@@ -44,6 +44,10 @@ const AturBunga = () => {
   };
 
   const editKredit = async () => {
+    if (!value || !sukuBunga) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
     try {
       const res = await api.put('products', {
         nama: value,

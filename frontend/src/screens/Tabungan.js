@@ -46,28 +46,11 @@ const Tabungan = () => {
     {label: '10 bulan', value: 300},
   ]);
 
-  const getKredit = async () => {
-    try {
-      const {data} = await api.get(`products/all`);
-      const result = data.data.map(data => {
-        setProduct(data.nama);
-        return {
-          label: data.nama,
-          value: data.suku_bunga,
-        };
-      });
-      console.log(items.label);
-      setItems(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getKredit();
-  }, []);
-
   const result = async data => {
+    if (!data.plafond || !data.tenor) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
     let plafond = data.plafond;
     let tenor = data.tenor;
     let bungaTab;
@@ -91,6 +74,8 @@ const Tabungan = () => {
     // console.log(data.value);
     let hasill = Math.round(hasil - hasil * 0.2);
     setAngsuran(hasill);
+
+    setModalVisible(true);
   };
 
   return (
@@ -111,10 +96,11 @@ const Tabungan = () => {
           editable={false}
         />
 
-        <Text style={styles.formText}>Plafond Kredit</Text>
+        <Text style={styles.formText}>Penempatan Dana</Text>
         <TextInput
           style={[styles.input]}
-          placeholder="Saldo Harian "
+          keyboardType="numeric"
+          placeholder="Penempatan Dana"
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
           value={plafond}
@@ -148,7 +134,6 @@ const Tabungan = () => {
               plafond: plafond,
               tenor: waktu,
             });
-            setModalVisible(true);
           }}>
           <Text style={{color: 'white', fontWeight: '700', fontSize: 18}}>
             Hitung
@@ -166,16 +151,18 @@ const Tabungan = () => {
                 <Text style={styles.textSuccess}>Hasil Simulasi</Text>
                 <View style={{marginVertical: 20}}>
                   <View style={styles.simRow}>
-                    <Text style={styles.simText}>Jenis Kredit {product}</Text>
-                  </View>
-                  <View style={styles.simRow}>
                     <Text style={styles.simText}>
-                      Plafond Kredit Rp. {plafond}
+                      Jenis Kredit: Tabungan Sejahtera
                     </Text>
                   </View>
                   <View style={styles.simRow}>
                     <Text style={styles.simText}>
-                      Jangka Waktu {waktu} Bulan
+                      Plafond Kredit: Rp. {plafond}
+                    </Text>
+                  </View>
+                  <View style={styles.simRow}>
+                    <Text style={styles.simText}>
+                      Jangka Waktu: {waktu} Bulan
                     </Text>
                   </View>
                   <View style={styles.resultRow}>
@@ -293,7 +280,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#fc5453',
-    width: 150,
+    width: 250,
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,

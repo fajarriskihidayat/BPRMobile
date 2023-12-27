@@ -62,6 +62,10 @@ const Deposito = () => {
   }, []);
 
   const result = async data => {
+    if (!data.plafond || !data.tenor) {
+      return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
+    }
+
     let plafond = data.plafond;
     let tenor = data.tenor;
     let bungaTab;
@@ -94,6 +98,8 @@ const Deposito = () => {
     // console.log(data.value);
     let hasill = Math.round(hasil - hasil * 0.2);
     setAngsuran(hasill);
+
+    setModalVisible(true);
   };
 
   return (
@@ -117,6 +123,7 @@ const Deposito = () => {
         <Text style={styles.formText}>Penempatan Dana</Text>
         <TextInput
           style={[styles.input]}
+          keyboardType="numeric"
           placeholder="Penempatan Dana "
           placeholderTextColor={'#969595'}
           onChangeText={plafond => setPlafond(plafond)}
@@ -151,7 +158,6 @@ const Deposito = () => {
               plafond: plafond,
               tenor: waktu,
             });
-            setModalVisible(true);
           }}>
           <Text style={{color: 'white', fontWeight: '700', fontSize: 18}}>
             Hitung
@@ -170,17 +176,17 @@ const Deposito = () => {
                 <View style={{marginVertical: 20}}>
                   <View style={styles.simRow}>
                     <Text style={styles.simText}>
-                      Jenis Produk Deposito Sejahtera
+                      Jenis Produk: Deposito Sejahtera
                     </Text>
                   </View>
                   <View style={styles.simRow}>
                     <Text style={styles.simText}>
-                      Penempatan Dana Rp. {plafond}
+                      Penempatan Dana: Rp. {plafond}
                     </Text>
                   </View>
                   <View style={styles.simRow}>
                     <Text style={styles.simText}>
-                      Jangka Waktu {waktu} Bulan
+                      Jangka Waktu: {waktu} Bulan
                     </Text>
                   </View>
                   <View style={styles.resultRow}>
@@ -298,7 +304,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#fc5453',
-    width: 150,
+    width: 250,
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,

@@ -9,9 +9,20 @@ router.get("/all", async (req, res) => {
 
   res.status(200).json({
     data: product,
-    metadata: "Get data by nama",
+    metadata: "Get all data",
   });
 });
+
+router.get('/category/:jenis', async (req, res) => {
+  const {jenis} = req.params
+
+  const product = await ProductsModel.findAll({where: {jenis: jenis}});
+
+  res.status(200).json({
+    data: product,
+    metadata: "Get data by jenis",
+  });
+})
 
 router.get("/name/:nama", async (req, res) => {
   const { nama } = req.params;
@@ -46,13 +57,20 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { nama, suku_bunga } = req.body;
+  const { id, nama, jenis, suku_bunga, deskripsi, syarat, manfaat, img_url } =
+    req.body;
 
   const product = await ProductsModel.update(
     {
+      nama,
+      jenis,
       suku_bunga,
+      deskripsi,
+      syarat,
+      manfaat,
+      img_url,
     },
-    { where: { nama: nama } }
+    { where: { id: id } }
   );
 
   res.status(200).json({

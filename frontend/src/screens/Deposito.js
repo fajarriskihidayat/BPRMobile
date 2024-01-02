@@ -42,9 +42,10 @@ const Deposito = () => {
 
   const getKredit = async () => {
     try {
-      const {data} = await api.get(`products/all`);
-      const result = data.data.map(data => {
+      const {data} = await api.get(`products/category/` + 'Deposito');
+      const result = data.data.map((data, i) => {
         setProduct(data.nama);
+
         return {
           label: data.nama,
           value: data.suku_bunga,
@@ -112,12 +113,24 @@ const Deposito = () => {
           <Text style={styles.textTitle}>Simulasi Deposito</Text>
         </View>
         <Image source={Office} style={styles.image} />
-        <Text style={styles.formText}>Jenis Deposito</Text>
-        <TextInput
-          style={[styles.input]}
-          placeholder="Deposito Sejahtera"
-          placeholderTextColor={'#494a49'}
-          editable={false}
+        <Text style={styles.formText}>Kategori Deposito</Text>
+        <DropDownPicker
+          open={openProduct}
+          value={value}
+          onSelectItem={bunga => setBunga(bunga)}
+          items={items}
+          setOpen={setOpenProduct}
+          setValue={setValue}
+          setItems={setItems}
+          placeholderStyle={{
+            color: 'grey',
+          }}
+          dropDownContainerStyle={{
+            borderColor: 'lightgrey',
+            backgroundColor: 'white',
+          }}
+          style={[styles.dropDown, styles.elevation]}
+          placeholder="Pilih kategori"
         />
 
         <Text style={styles.formText}>Penempatan Dana</Text>
@@ -191,7 +204,7 @@ const Deposito = () => {
                   </View>
                   <View style={styles.resultRow}>
                     <Text style={styles.resultText}>
-                      Hasil Deposito : Rp. {angsuran}
+                      Bunga Deposito : Rp. {angsuran}
                     </Text>
                   </View>
                   <Text style={{fontSize: 10, marginTop: 10}}>

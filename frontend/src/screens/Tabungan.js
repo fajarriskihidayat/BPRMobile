@@ -46,12 +46,34 @@ const Tabungan = () => {
     {label: '10 bulan', value: 300},
   ]);
 
+  const getKredit = async () => {
+    try {
+      const {data} = await api.get(`products/category/` + 'Tabungan');
+      const result = data.data.map((data, i) => {
+        setProduct(data.nama);
+
+        return {
+          label: data.nama,
+          value: data.suku_bunga,
+        };
+      });
+      console.log(items.label);
+      setItems(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getKredit();
+  }, []);
+
   const result = async data => {
-    if (!data.plafond || !data.tenor) {
+    if (!data.plafond) {
       return ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
     }
 
-    let plafond = data.plafond;
+    let plafondData = data.plafond;
     let tenor = data.tenor;
     let bungaTab;
 
@@ -67,12 +89,15 @@ const Tabungan = () => {
       bungaTab = 0;
     }
 
-    console.log(bungaTab);
+    console.log({bungaTab});
+    console.log(parseInt(plafondData));
     let hasil =
-      (parseInt(plafond) * (parseInt(bungaTab) / 100) * parseInt(tenor)) / 366;
+      (parseInt(plafondData) * (parseInt(bungaTab) / 100) * 30) / 366;
     // console.log("angsuran per bulan = ", Math.round(hasil));
     // console.log(data.value);
     let hasill = Math.round(hasil - hasil * 0.2);
+    console.log({hasil})
+    console.log({hasill})
     setAngsuran(hasill);
 
     setModalVisible(true);
@@ -88,12 +113,24 @@ const Tabungan = () => {
           <Text style={styles.textTitle}>Simulasi Tabungan</Text>
         </View>
         <Image source={Office} style={styles.image} />
-        <Text style={styles.formText}>Jenis Tabungan</Text>
-        <TextInput
-          style={[styles.input]}
-          placeholder="Tabungan Sejahtera"
-          placeholderTextColor={'#494a49'}
-          editable={false}
+        <Text style={styles.formText}>Kategori Tabungan</Text>
+        <DropDownPicker
+          open={openProduct}
+          value={value}
+          onSelectItem={bunga => setBunga(bunga)}
+          items={items}
+          setOpen={setOpenProduct}
+          setValue={setValue}
+          setItems={setItems}
+          placeholderStyle={{
+            color: 'grey',
+          }}
+          dropDownContainerStyle={{
+            borderColor: 'lightgrey',
+            backgroundColor: 'white',
+          }}
+          style={[styles.dropDown, styles.elevation]}
+          placeholder="Pilih kategori"
         />
 
         <Text style={styles.formText}>Penempatan Dana</Text>
@@ -106,7 +143,7 @@ const Tabungan = () => {
           value={plafond}
         />
 
-        <Text style={styles.formText}>Jangka Waktu</Text>
+        {/* <Text style={styles.formText}>Jangka Waktu</Text>
         <DropDownPicker
           open={openTime}
           value={waktu}
@@ -124,7 +161,7 @@ const Tabungan = () => {
           }}
           style={[styles.dropDown, styles.elevation]}
           placeholder="Pilih Jangka Waktu"
-        />
+        /> */}
 
         <TouchableOpacity
           style={styles.button}
@@ -160,14 +197,9 @@ const Tabungan = () => {
                       Plafond Kredit: Rp. {plafond}
                     </Text>
                   </View>
-                  <View style={styles.simRow}>
-                    <Text style={styles.simText}>
-                      Jangka Waktu: {waktu} Bulan
-                    </Text>
-                  </View>
                   <View style={styles.resultRow}>
                     <Text style={styles.resultText}>
-                      Bunga per bulan : Rp. {angsuran}
+                      Bunga Tabungan : Rp. {angsuran}
                     </Text>
                   </View>
                   <Text style={{fontSize: 10, marginTop: 10}}>

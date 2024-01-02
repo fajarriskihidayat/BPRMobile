@@ -62,7 +62,7 @@ const Kredit = () => {
 
   const getKredit = async () => {
     try {
-      const {data} = await api.get(`products/all`);
+      const {data} = await api.get(`products/category/` + 'Kredit');
       const result = data.data.map((data, i) => {
         setProduct(data.nama);
 
@@ -121,7 +121,7 @@ const Kredit = () => {
           <Text style={styles.textTitle}>Simulasi Kredit</Text>
         </View>
         <Image source={Office} style={styles.image} />
-        <Text style={styles.formText}>Jenis Kredit</Text>
+        <Text style={styles.formText}>Kategori Kredit</Text>
         <DropDownPicker
           open={openProduct}
           value={value}

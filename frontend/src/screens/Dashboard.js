@@ -108,9 +108,9 @@ const Dashboard = () => {
         <View style={styles.DashboardAreaTop}>
           <TouchableOpacity
             style={[styles.naviButton]}
-            onPress={() => navigation.navigate('Atur')}>
+            onPress={() => navigation.navigate('ListProduct')}>
             <Icon name="water-percent" color={'grey'} size={68} />
-            <Text style={{fontWeight: '500'}}>Atur Suku Bunga</Text>
+            <Text style={{fontWeight: '500'}}>List Produk</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.naviButton]}
@@ -197,6 +197,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: 'row',
     marginVertical: 15,
+    zIndex: 100,
+    position: 'relative',
   },
   dropDown: {
     width: '80%',

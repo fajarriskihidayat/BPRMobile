@@ -95,11 +95,11 @@ const Detail = ({navigation, route}) => {
                       />
                       <Text style={{marginLeft: 5}}>{data.jenis}</Text>
                     </View>
-                    <View style={styles.interest}>
+                    {data.suku_bunga !== 0 && <View style={styles.interest}>
                       <Text style={{fontWeight: '700', color: 'white'}}>
                         {data.suku_bunga}%
                       </Text>
-                    </View>
+                    </View>}
                   </View>
                 </TouchableOpacity>
               ))}

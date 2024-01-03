@@ -26,7 +26,7 @@ router.get("/account/:username", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { username, nama, no_hp, password } = req.body;
+  const { username, nama, no_hp, email, password } = req.body;
 
   const encryptPwd = await bcrypt.hash(password, 10);
 
@@ -39,6 +39,7 @@ router.post("/", async (req, res) => {
       username,
       nama,
       no_hp,
+      email,
       password: encryptPwd,
     });
     res.status(200).json({

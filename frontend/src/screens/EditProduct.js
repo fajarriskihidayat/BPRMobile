@@ -11,8 +11,6 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Office from '../assets/DBS.png';
-import Profil from '../assets/Profile.png';
-import ProfileP from '../assets/user.png';
 import Logo from '../assets/Logo.png';
 import {useNavigation} from '@react-navigation/native';
 import api from '../api';
@@ -75,6 +73,8 @@ const EditProduct = ({route}) => {
   useEffect(() => {
     getOne();
   }, []);
+
+  console.log({data});
 
   return (
     <ScrollView>

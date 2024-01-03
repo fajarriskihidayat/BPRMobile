@@ -18,6 +18,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [nama, setNama] = useState('');
   const [noHp, setNoHp] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegis = async () => {
@@ -26,6 +27,7 @@ const Register = () => {
         username: username,
         nama: nama,
         no_hp: noHp,
+        email: email,
         password: password,
       });
 
@@ -63,6 +65,14 @@ const Register = () => {
           onChangeText={username => setUsername(username)}
           value={username}
         />
+        <Text style={styles.formText}>Email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#58565e"
+          onChangeText={email => setEmail(email)}
+          value={email}
+        />
         <Text style={styles.formText}>No. Hp</Text>
         <TextInput
           keyboardType="numeric"
@@ -86,7 +96,7 @@ const Register = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={async () => {
-            if (!nama || !username || !noHp || !password) {
+            if (!nama || !username || !noHp || !email || !password) {
               ToastAndroid.show('Data tidak boleh kosong', ToastAndroid.SHORT);
             } else {
               await handleRegis();

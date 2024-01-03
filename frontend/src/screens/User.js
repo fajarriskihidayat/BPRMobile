@@ -57,7 +57,6 @@ const User = () => {
           <Image source={Logo} style={styles.logo} />
         </View>
         <View style={styles.body}>
-          <Text style={styles.username}>{data.usernmae}</Text>
           <Image source={ProfileP} style={styles.profilePicture} />
           <Text style={styles.name}>{data.name}</Text>
           <View style={styles.role}>

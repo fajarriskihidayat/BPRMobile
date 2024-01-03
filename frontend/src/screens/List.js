@@ -40,9 +40,10 @@ const List = () => {
           padding: 8px;
         }
       </style>
-      <h1>Data Calon Nasabah</h1>
+      <a href="https://ibb.co/tD94qVm"><img src="https://i.ibb.co/DQZt90V/Logo.png" alt="Logo" width=400 /></a>
+      <h1 style="text-align: center; margin-top: 60px; color: #393985">Data Calon Nasabah</h1>
       <table style="width:100%;">
-        <tr>
+        <tr style="background-color: #fc5453; color: #fff">
           <th>No</th>
           <th>Username</th>
           <th>Nama</th>
